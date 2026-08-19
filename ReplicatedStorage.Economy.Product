@@ -1,0 +1,69 @@
+local v_u_1 = require(game.ReplicatedStorage.Packages.Result)
+local v_u_2 = require(game.ReplicatedStorage.Packages.Option)
+require(game.ReplicatedStorage.Packages.Future)
+local v3 = require(game.ReplicatedStorage.Packages.Type)
+local v_u_4 = require(game.ReplicatedStorage.Packages.Display)
+local v_u_5 = require(game.ReplicatedStorage.Packages.SimpleError)
+local v6 = require(game.ReplicatedStorage.Economy.EconomyItem.Product.TierInfo)
+local v7 = require(game.ReplicatedStorage.Economy.EconomyItem.Product.Settlement)
+require(game.ReplicatedStorage.Economy.EconomyItem.LegacyInfo)
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+local v8 = require(game.ReplicatedStorage.Economy.TypeUtil)
+local v_u_9 = {}
+v_u_9.__index = v_u_9
+function v_u_9.__tostring(p10) -- name: __tostring
+    -- upvalues: (copy) v_u_4
+    local v11 = table.clone(p10)
+    setmetatable(v11, nil)
+    return ("%*<%*>"):format(script.Name, (v_u_4.JSON.new():display(v11)))
+end
+function v_u_9.GetMatchingTier(p12, p_u_13) -- name: GetMatchingTier
+    -- upvalues: (copy) v_u_2, (copy) v_u_1, (copy) v_u_5
+    local v14 = v_u_2.none()
+    for _, v15 in pairs(p12.Tiers) do
+        if v15.Tier:Check(p_u_13) then
+            if v14:isSome() then
+                return v_u_1.err(v_u_5.new("Overqualified", (("Multiple tiers found matching level %*"):format(p_u_13))))
+            end
+            v14 = v_u_2.some(v15.Settlement)
+        end
+    end
+    return v_u_2.map(v14, function(p16)
+        -- upvalues: (ref) v_u_1
+        return v_u_1.ok(p16)
+    end):unwrapOrElse(function()
+        -- upvalues: (ref) v_u_1, (ref) v_u_5, (copy) p_u_13
+        return v_u_1.err(v_u_5.new("Underqualified", (("No tier found matching level %*"):format(p_u_13))))
+    end)
+end
+function v_u_9.new(p17) -- name: new
+    -- upvalues: (copy) v_u_9
+    local v18 = {}
+    for v19, v20 in p17 do
+        local v21 = table.freeze
+        table.insert(v18, v21({
+            ["Tier"] = v19,
+            ["Settlement"] = v20
+        }))
+    end
+    local v22 = v_u_9
+    local v23 = setmetatable({
+        ["Tiers"] = v18
+    }, v22)
+    table.freeze(v23)
+    return v23
+end
+local v24 = {}
+local v25 = {}
+local v26 = v3.intersection
+local v27 = v3.strictInterface
+local v28 = {
+    ["Tiers"] = v3.array(v3.strictInterface({
+        ["Tier"] = v6.Type.check,
+        ["Settlement"] = v7.Type.check
+    }))
+}
+v25.check = v26(v27(v28), v8.Metatable.Type.check(v_u_9))
+v24.Type = v25
+v24.Class = v_u_9
+return v24
