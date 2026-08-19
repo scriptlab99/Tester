@@ -1,0 +1,64 @@
+require(game.ReplicatedStorage.Packages.Result)
+local v1 = require(game.ReplicatedStorage.Packages.Type)
+require(game.ReplicatedStorage.Economy.EconomyItem.LegacyInfo)
+require(game.ReplicatedStorage.Modules.Asset.RarityUtil)
+local v2 = {
+    ["REVERSE_LOOK_UP_FIELD"] = "ItemId"
+}
+local v3 = v1.literal({
+    "Common",
+    "Uncommon",
+    "Rare",
+    "Legendary",
+    "Mythical",
+    "Premium"
+})
+local v4 = {}
+local v5 = v1.strictInterface
+local v6 = {
+    ["Name"] = v1.string,
+    ["subtype"] = v1.literal("Bundle Product", "Stored Product", "Fruit", "Fragment Product", "AuraSkin", "FruitSkin", "Cash Product", "Named Product", "Exp Product", "Skin Bundle", "FruitMutation"),
+    ["seaLevelGiftCheck"] = v1.optional(v1.boolean),
+    ["dressrosa"] = v1.optional(v1.boolean),
+    ["productType"] = v1.literal("Product", "GamePass"),
+    ["storageName"] = v1.string,
+    ["doNotFeature"] = v1.optional(v1.boolean),
+    ["reducer"] = v1.optional((v1.numberConstrained(0, 1))),
+    ["IsForSale"] = v1.optional(v1.boolean),
+    ["gift"] = v1.optional(v1.boolean),
+    ["ItemId"] = v1.optional(v1.integer),
+    ["assetId"] = v1.optional(v1.integer),
+    ["subitem"] = v1.optional(v1.string),
+    ["Cash"] = v1.optional(v1.array(v1.integer)),
+    ["Fragments"] = v1.optional(v1.array(v1.integer)),
+    ["MinRobuxSpend"] = v1.optional(v1.integer),
+    ["maxGift"] = v1.optional(v1.integer),
+    ["maxPurchase"] = v1.optional(v1.integer),
+    ["StoreAll"] = v1.optional(v1.boolean),
+    ["Fruits"] = v1.optional(v1.array(v1.string)),
+    ["PurchaseLimits"] = v1.optional(v1.strictInterface({
+        ["MaxGift"] = v1.integer,
+        ["MaxPurchase"] = v1.integer
+    })),
+    ["StorageName"] = v1.optional(v1.string),
+    ["Gift"] = v1.optional(v1.boolean),
+    ["AssetId"] = v1.optional(v1.integer),
+    ["modifiers"] = v1.optional(v1.map(v1.literal("Beli", "Fragments"), v1.integer)),
+    ["Amount"] = v1.optional(v1.integer),
+    ["isDungeonProduct"] = v1.optional(v1.boolean),
+    ["redeemedFor"] = v1.optional(v1.literal("Random")),
+    ["Rarity"] = v1.optional(v1.union(v1.strictInterface({
+        ["Name"] = v3,
+        ["Value"] = v1.integer,
+        ["Outline"] = v1.boolean,
+        ["Color"] = v1.Color3
+    }), v1.integer)),
+    ["item"] = v1.optional(v1.string),
+    ["productId"] = v1.optional(v1.integer),
+    ["nostore"] = v1.optional(v1.boolean),
+    ["bundleItems"] = v1.optional(v1.array(v1.string)),
+    ["bundletype"] = v1.optional(v1.literal("FruitSkin"))
+}
+v4.RobuxItemData = v5(v6)
+v2.Types = v4
+return v2
