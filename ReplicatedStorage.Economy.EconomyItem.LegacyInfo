@@ -1,0 +1,37 @@
+require(game.ReplicatedStorage.Packages.Result)
+require(game.ReplicatedStorage.Packages.Option)
+local v1 = require(game.ReplicatedStorage.Packages.Type)
+local v_u_2 = require(game.ReplicatedStorage.Packages.Display)
+local v3 = require(game.ReplicatedStorage.Economy.TypeUtil)
+local v_u_4 = {}
+v_u_4.__index = v_u_4
+function v_u_4.__tostring(p5) -- name: __tostring
+    -- upvalues: (copy) v_u_2
+    local v6 = table.clone(p5)
+    setmetatable(v6, nil)
+    return ("%*<%*>"):format(script.Name, (v_u_2.JSON.new():display(v6)))
+end
+function v_u_4.new(p7, p8, p9, p10) -- name: new
+    -- upvalues: (copy) v_u_4
+    local v11 = v_u_4
+    local v12 = setmetatable({
+        ["Category"] = p7,
+        ["Key"] = p8,
+        ["IsDeprecated"] = p9,
+        ["RobuxItemType"] = p10
+    }, v11)
+    table.freeze(v12)
+    return v12
+end
+local v13 = {}
+local v14 = {
+    ["check"] = v1.intersection(v1.strictInterface({
+        ["Category"] = v1.literal("Bundles", "CachedSales", "FruitBoxes", "Items", "Outline", "Robux", "Sales"),
+        ["Key"] = v1.string,
+        ["IsDeprecated"] = v1.boolean,
+        ["RobuxItemType"] = v1.literal("FruitBox", "Bundle", "AuraSkin", "FruitSkin", "FruitMutation", "Currency", "Gamepass", "Fruit", "ExpProduct", "PhysicalRocketFruit", "NamedProduct", "StoredProduct", "SkinBundle", "SkinnedFruit", "MutatedFruit", "DungeonProduct", "Sword", "SwordSkin", "ProfileItem")
+    }), v3.Metatable.Type.check(v_u_4))
+}
+v13.Type = v14
+v13.Class = v_u_4
+return v13
