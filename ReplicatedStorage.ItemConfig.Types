@@ -1,0 +1,382 @@
+local v1 = require(game.ReplicatedStorage.Packages.Type)
+local v_u_2 = require(game.ReplicatedStorage.Packages.TableUtil)
+local v3 = require(game.ReplicatedStorage.Util.TypeUtil)
+require(game.ReplicatedStorage.Economy.ItemId)
+require(game.ReplicatedStorage.PseudoEnum)
+require(game.ReplicatedStorage.Modules.Asset.RarityUtil)
+require(game.ReplicatedStorage.Spritesheets)
+local v_u_4 = require(script.Parent.Data.Display)
+local v_u_5 = require(script.Parent.Data.Inventory)
+local v_u_6 = require(script.Parent.Data.Skin)
+local v_u_7 = require(script.Parent.Data.Variant)
+local v_u_8 = require(script.Parent.Data.Moveset)
+local v_u_9 = require(script.Parent.Data.Economy)
+local v_u_10 = require(script.Parent.Data.Equipment)
+local v_u_11 = require(script.Parent.Data.Quality)
+local v_u_12 = require(script.Parent.Data.State)
+local v_u_13 = require(script.Parent.Data.Index)
+local v_u_14 = require(script.Parent.Data.Mutation)
+local v_u_15 = require(game.ReplicatedStorage.Util.Parse)
+local v_u_16 = require(script.Parent.Data.Gacha)
+local v_u_17 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Sprite Key"] = "Sprite",
+    ["Outline Sprite Key"] = "OutlineSprite",
+    ["Sprite Border Thickness"] = "SpriteBorderThickness",
+    ["Corner Icon Sprite Key"] = "CornerIcon",
+    ["Outline Sprite Color"] = "OutlineColor",
+    ["Background Color"] = "BackgroundColor",
+    ["Category Icon Text"] = "CategoryIconText",
+    ["Category Icon Sprite Key"] = "CategoryIcon",
+    ["Ribbon Text"] = "RibbonText"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Interface({
+    ["Name"] = v_u_15.Optional(v_u_15.String),
+    ["Title"] = v_u_15.Optional(v_u_15.String),
+    ["Category"] = v_u_15.Optional(v_u_15.String),
+    ["Sprite"] = v_u_15.Optional(v_u_15.Sprite),
+    ["OutlineSprite"] = v_u_15.Optional(v_u_15.Sprite),
+    ["CategoryIcon"] = v_u_15.Optional(v_u_15.Sprite),
+    ["CategoryIconText"] = v_u_15.Optional(v_u_15.String),
+    ["OutlineColor"] = v_u_15.Optional(v_u_15.Color3),
+    ["Description"] = v_u_15.Optional(v_u_15.String),
+    ["BackgroundColor"] = v_u_15.Optional(v_u_15.Color3),
+    ["CornerIcon"] = v_u_15.Optional(v_u_15.Sprite),
+    ["RibbonText"] = v_u_15.Optional(v_u_15.String),
+    ["SpriteBorderThickness"] = v_u_15.Optional(v_u_15.UnsignedInteger)
+}))
+local v_u_18 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Tile Overlays"] = "TileOverlays",
+    ["Sort Priority"] = "SortPriority",
+    ["Stack Key"] = "StackKey",
+    ["Stack Priority"] = "StackPriority",
+    ["Max Stack"] = "MaxStack",
+    ["Tile Appearance"] = "TileAppearance",
+    ["Outline Appearance"] = "OutlineAppearance",
+    ["Stack Display Name"] = "StackDisplayName",
+    ["Stack Display Category"] = "StackDisplayCategory",
+    ["Stack Category Icon Sprite Key"] = "StackCategoryIcon"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Interface({
+    ["Groups"] = v_u_15.OfSize(v_u_15.Array(v_u_15.PseudoEnumItem("InventoryItemGroup")), v1.numberMin(1)),
+    ["Brackets"] = v_u_15.OfSize(v_u_15.Array(v_u_15.PseudoEnumItem("InventoryItemBracket")), v1.numberMin(1)),
+    ["Tags"] = v_u_15.Array(v_u_15.PseudoEnumItem("InventoryItemTag")),
+    ["Actions"] = v_u_15.Array(v_u_15.PseudoEnumItem("InventoryAction")),
+    ["TileOverlays"] = v_u_15.Array(v_u_15.PseudoEnumItem("InventoryTileOverlay")),
+    ["SortPriority"] = v_u_15.Optional(v_u_15.And(v_u_15.Number, v1.numberMinExclusive(0))),
+    ["StackKey"] = v_u_15.Optional(v_u_15.String),
+    ["StackDisplayName"] = v_u_15.Optional(v_u_15.String),
+    ["StackDisplayCategory"] = v_u_15.Optional(v_u_15.String),
+    ["StackPriority"] = v_u_15.Optional(v_u_15.UnsignedInteger),
+    ["StackCategoryIcon"] = v_u_15.Optional(v_u_15.Sprite),
+    ["MaxStack"] = v_u_15.Optional(v_u_15.UnsignedInteger),
+    ["TileAppearance"] = v_u_15.PseudoEnumItem("InventoryTileAppearance"),
+    ["OutlineAppearance"] = v_u_15.PseudoEnumItem("InventoryOutlineAppearance")
+}))
+local v_u_27 = v_u_15.Merge(function(p19, p20)
+    -- upvalues: (copy) v_u_15
+    local v21 = {}
+    for v22, v23 in p19 do
+        v21[v22] = v23
+    end
+    for v24, v25 in p20 do
+        v21[v24] = v25
+    end
+    if p20.Rarity then
+        local v26 = v_u_15.RarityValueFromType(p20.Rarity)
+        if v26.Ok == false then
+            return v26
+        end
+        v21.RarityValue = v26.Value
+    end
+    return {
+        ["Ok"] = true,
+        ["Value"] = nil,
+        ["Value"] = v21
+    }
+end, v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Fragments Price"] = "FragmentsPrice",
+    ["Money Price"] = "MoneyPrice",
+    ["Stock Chance"] = "StockChance",
+    ["Stock Offset"] = "StockOffset"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Interface({
+    ["FragmentsPrice"] = v_u_15.Optional(v_u_15.UnsignedInteger),
+    ["MoneyPrice"] = v_u_15.Optional(v_u_15.UnsignedInteger),
+    ["StockChance"] = v_u_15.Optional(v_u_15.Percent),
+    ["StockOffset"] = v_u_15.Optional(v_u_15.UnsignedInteger)
+})), v_u_15.Interface({
+    ["Rarity"] = v_u_15.Optional(v_u_15.RarityType)
+}))
+local v_u_28 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Purchase With Item Id"] = "PurchaseWith",
+    ["Robux Price"] = "RobuxPrice",
+    ["Product Id"] = "ProductId",
+    ["Gamepass Id"] = "GamepassId",
+    ["Trade Reducer"] = "TradeReducer",
+    ["Is Giftable"] = "IsGiftable",
+    ["Can Be Featured"] = "CanBeFeatured"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Union(v_u_15.Interface({
+    ["PurchaseWith"] = v_u_15.Optional(v_u_15.ItemIdOfType("Redeemable")),
+    ["TradeReducer"] = v_u_15.Optional(v_u_15.And(v_u_15.Number, v1.numberConstrained(0, 1))),
+    ["RobuxPrice"] = v_u_15.Nil,
+    ["ProductId"] = v_u_15.Nil,
+    ["GamepassId"] = v_u_15.Nil,
+    ["IsGiftable"] = v_u_15.And(v_u_15.Boolean, v1.literal(false)),
+    ["CanBeFeatured"] = v_u_15.And(v_u_15.Boolean, v1.literal(false))
+}), v_u_15.Interface({
+    ["PurchaseWith"] = v_u_15.Nil,
+    ["RobuxPrice"] = v_u_15.And(v_u_15.Integer, v1.numberMinExclusive(0)),
+    ["ProductId"] = v_u_15.UnsignedInteger,
+    ["GamepassId"] = v_u_15.Optional(v_u_15.UnsignedInteger),
+    ["TradeReducer"] = v_u_15.Optional(v_u_15.And(v_u_15.Number, v1.numberConstrained(0, 1))),
+    ["IsGiftable"] = v_u_15.Boolean,
+    ["CanBeFeatured"] = v_u_15.Boolean
+})))
+local v_u_29 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Equip Method"] = "EquipMethod",
+    ["Storage Method"] = "StorageMethod"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Interface({
+    ["StorageMethod"] = v_u_15.PseudoEnumItem("ItemStorageMethod"),
+    ["EquipMethod"] = v_u_15.Optional(v_u_15.PseudoEnumItem("ItemEquipMethod"))
+}))
+local v_u_30 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Adornee Item Id"] = "Adornee",
+    ["Is Default"] = "IsDefault",
+    ["Is Chromatic"] = "IsChromatic",
+    ["Physical Item Id"] = "Physical",
+    ["Equipped Adornee Sprite Key"] = "EquippedAdorneeSprite"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Union(v_u_15.Interface({
+    ["Type"] = v_u_15.And(v_u_15.String, v1.literal("Fruit", "Sword", "Aura")),
+    ["IsDefault"] = v_u_15.Boolean,
+    ["IsChromatic"] = v_u_15.Boolean,
+    ["EquippedAdorneeSprite"] = v_u_15.Optional(v_u_15.Sprite),
+    ["Adornee"] = v_u_15.ItemId,
+    ["Physical"] = v_u_15.Optional(v_u_15.ItemId)
+}), v_u_15.Interface({
+    ["Type"] = v_u_15.Nil,
+    ["IsDefault"] = v_u_15.Boolean,
+    ["IsChromatic"] = v_u_15.Optional(v_u_15.Boolean),
+    ["EquippedAdorneeSprite"] = v_u_15.Nil,
+    ["Adornee"] = v_u_15.Nil,
+    ["Physical"] = v_u_15.Nil
+})))
+local v_u_31 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Physical Item Id"] = "Physical",
+    ["Skill Redirect"] = "SkillRedirect"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Interface({
+    ["Type"] = v_u_15.Optional(v_u_15.And(v_u_15.String, v1.literal("Fruit", "Gun", "Sword", "FightingStyle"))),
+    ["Physical"] = v_u_15.Optional(v_u_15.ItemIdOfType("PhysicalMoveset")),
+    ["SkillRedirect"] = v_u_15.Optional(v_u_15.ItemIdOfType("Moveset"))
+}))
+local v_u_32 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Physical Item Id"] = "Physical",
+    ["Adornee Item Id"] = "Adornee"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Union(v_u_15.Interface({
+    ["Physical"] = v_u_15.Optional(v_u_15.ItemIdOfType("PhysicalMoveset")),
+    ["Adornee"] = v_u_15.Optional(v_u_15.ItemIdOfType("Moveset"))
+}), v_u_15.Interface({
+    ["Physical"] = v_u_15.Nil,
+    ["Adornee"] = v_u_15.Nil
+})))
+local v_u_33 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Base Gacha Weight"] = "BaseWeight",
+    ["Max Gacha Chance"] = "MaxChance"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Union(v_u_15.Interface({
+    ["BaseWeight"] = v_u_15.And(v_u_15.Integer, v1.numberConstrained(1, 100000)),
+    ["MaxChance"] = v_u_15.Optional(v_u_15.Percent)
+}), v_u_15.Interface({
+    ["BaseWeight"] = v_u_15.Nil,
+    ["MaxChance"] = v_u_15.Nil
+})))
+local v34 = v_u_15.Chain
+local v35 = v_u_15.Map(v_u_15.Translate({
+    ["Is Foundation"] = "IsFoundation",
+    ["Mutation Item Id"] = "Mutation",
+    ["Variant Of Item Id"] = "VariantOf"
+}), v_u_15.Optional(v_u_15.Any))
+local v36 = v_u_15.And
+local v37 = v_u_15.Interface({
+    ["IsFoundation"] = v_u_15.Optional(v_u_15.Boolean),
+    ["Mutation"] = v_u_15.Optional(v_u_15.ItemId),
+    ["VariantOf"] = v_u_15.Optional(v_u_15.ItemId)
+})
+local v38 = v3.Types.BetterUnion
+local v39 = {
+    ["Foundation"] = v1.strictInterface({
+        ["IsFoundation"] = v1.literal(true),
+        ["Mutation"] = v1.optional(v3.Types.ItemId())
+    }),
+    ["Variant"] = v1.strictInterface({
+        ["IsFoundation"] = v1.literal(false),
+        ["Mutation"] = v1.optional(v3.Types.ItemId()),
+        ["VariantOf"] = v1.optional(v3.Types.ItemId())
+    })
+}
+local v_u_40 = v34(v35, v36(v37, v38(v39)))
+local v_u_41 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Adornee Item Id"] = "Adornee",
+    ["Is Aura Bound"] = "IsAuraBound",
+    ["Mastery Requirement"] = "MasteryRequirement",
+    ["Slot"] = "Slots"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Union(v_u_15.Interface({
+    ["Slots"] = v_u_15.OfSize(v_u_15.Array(v_u_15.Optional(v_u_15.And(v_u_15.String, v1.literal("Crown", "BodyArmor", "Seats", "Helmet")))), v1.numberMin(1)),
+    ["MasteryRequirement"] = v_u_15.Optional(v_u_15.And(v_u_15.Integer, v1.numberMinExclusive(0))),
+    ["IsAuraBound"] = v_u_15.Boolean,
+    ["Adornee"] = v_u_15.ItemId
+}), v_u_15.Interface({
+    ["Slots"] = v_u_15.Nil,
+    ["IsAuraBound"] = v_u_15.Boolean,
+    ["Adornee"] = v_u_15.Nil
+})))
+local v_u_42 = v_u_15.Chain(v_u_15.Map(v_u_15.Translate({
+    ["Item Id"] = "ItemId",
+    ["Storage Key"] = "StorageKey",
+    ["Id Type"] = "IdType",
+    ["Label"] = "DebugLabel"
+}), v_u_15.Optional(v_u_15.Any)), v_u_15.Interface({
+    ["ItemId"] = v_u_15.ItemId,
+    ["StorageKey"] = v_u_15.String,
+    ["IdType"] = v_u_15.ItemIdType,
+    ["DebugLabel"] = v_u_15.Optional(v_u_15.String)
+}))
+function unpackConfig(p43, p44, p45, p46, p47) -- name: unpackConfig
+    local v48 = p46[p45]
+    if not v48 then
+        return {
+            ["Ok"] = false,
+            ["Message"] = nil,
+            ["Message"] = ("No \"%*\" data for \"%*\""):format(p43, p44)
+        }
+    end
+    local v49 = p47(v48)
+    return v49.Ok == false and {
+        ["Ok"] = false,
+        ["Message"] = nil,
+        ["Message"] = ("%* parsing for \"%*\" failed: %*"):format(p43, p44, v49.Message)
+    } or {
+        ["Ok"] = true,
+        ["Value"] = nil,
+        ["Value"] = v49.Value
+    }
+end
+local function v_u_67(p50)
+    -- upvalues: (copy) v_u_15, (copy) v_u_13, (copy) v_u_42, (copy) v_u_4, (copy) v_u_17, (copy) v_u_11, (copy) v_u_27, (copy) v_u_9, (copy) v_u_28, (copy) v_u_6, (copy) v_u_30, (copy) v_u_7, (copy) v_u_40, (copy) v_u_8, (copy) v_u_31, (copy) v_u_12, (copy) v_u_29, (copy) v_u_10, (copy) v_u_41, (copy) v_u_5, (copy) v_u_18, (copy) v_u_14, (copy) v_u_32, (copy) v_u_16, (copy) v_u_33, (copy) v_u_2
+    local v51 = v_u_15.ItemId(p50)
+    if v51.Ok == false then
+        return v51
+    end
+    local v52 = v51.Value
+    local v53 = v_u_13[v52]
+    if not v53 then
+        return {
+            ["Ok"] = false,
+            ["Message"] = nil,
+            ["Message"] = ("No index data for item id %*"):format(v52)
+        }
+    end
+    if v53["Do Not Use"] ~= "FALSE" then
+        return {
+            ["Ok"] = false,
+            ["Message"] = nil,
+            ["Message"] = ("ItemConfig constructing skipped for retired Id \"%*\""):format(v53.Label)
+        }
+    end
+    local v54 = unpackConfig("Index", ("#%*"):format(v52), v52, v_u_13, v_u_42)
+    if v54.Ok == false then
+        return v54
+    end
+    local v55 = unpackConfig("Display", v54.Value.DebugLabel, v52, v_u_4, v_u_17)
+    if v55.Ok == false then
+        return v55
+    end
+    local v56 = unpackConfig("Quality", v54.Value.DebugLabel, v52, v_u_11, v_u_27)
+    if v56.Ok == false then
+        return v56
+    end
+    local v57 = unpackConfig("Economy", v54.Value.DebugLabel, v52, v_u_9, v_u_28)
+    if v57.Ok == false then
+        return v57
+    end
+    if v57.Value and (v57.Value.PurchaseWith == nil and (v57.Value.ProductId == nil and v57.Value.TradeReducer == nil)) then
+        v57.Value = nil
+    end
+    if v54.Value.IdType ~= "Redeemable" and (v57.Value and (v57.Value.RobuxPrice or (v57.Value.ProductId or v57.Value.GamepassId))) then
+        return {
+            ["Ok"] = false,
+            ["Message"] = nil,
+            ["Message"] = ("\"%*\" is of type \"%*\" and cannot have a product - only Redeemable items can have products."):format(v54.Value.DebugLabel, v54.Value.IdType)
+        }
+    end
+    local v58 = unpackConfig("Skin", v54.Value.DebugLabel, v52, v_u_6, v_u_30)
+    if v58.Ok == false then
+        return v58
+    end
+    if v58.Value and v58.Value.Type == nil then
+        v58.Value = nil
+    end
+    local v59 = unpackConfig("Variant", v54.Value.DebugLabel, v52, v_u_7, v_u_40)
+    if v59.Ok == false then
+        return v59
+    end
+    local v60 = unpackConfig("Moveset", v54.Value.DebugLabel, v52, v_u_8, v_u_31)
+    if v60.Ok == false then
+        return v60
+    end
+    if v60.Value and v60.Value.Type == nil then
+        v60.Value = nil
+    end
+    local v61 = unpackConfig("State", v54.Value.DebugLabel, v52, v_u_12, v_u_29)
+    if v61.Ok == false then
+        return v61
+    end
+    local v62 = unpackConfig("Equipment", v54.Value.DebugLabel, v52, v_u_10, v_u_41)
+    if v62.Ok == false then
+        return v62
+    end
+    if v62.Value and v62.Value.Adornee == nil then
+        v62.Value = nil
+    end
+    local v63 = unpackConfig("Inventory", v54.Value.DebugLabel, v52, v_u_5, v_u_18)
+    if v63.Ok == false then
+        return v63
+    end
+    local v64 = unpackConfig("Mutation", v54.Value.DebugLabel, v52, v_u_14, v_u_32)
+    if v64.Ok == false then
+        return v64
+    end
+    local v65 = unpackConfig("Gacha", v54.Value.DebugLabel, v52, v_u_16, v_u_33)
+    if v65.Ok == false then
+        return v65
+    end
+    if v65.Value and v65.Value.BaseWeight == nil then
+        v65.Value = nil
+    end
+    local v66 = {
+        ["Index"] = v54.Value,
+        ["Display"] = v55.Value,
+        ["Quality"] = v56.Value,
+        ["Inventory"] = v63.Value,
+        ["Skin"] = v58.Value,
+        ["Variant"] = v59.Value,
+        ["Moveset"] = v60.Value,
+        ["Equipment"] = v62.Value,
+        ["Mutation"] = v64.Value,
+        ["Economy"] = v57.Value,
+        ["State"] = v61.Value,
+        ["Gacha"] = v65.Value
+    }
+    v_u_2.deepFreeze(v66)
+    return {
+        ["Ok"] = true,
+        ["Value"] = nil,
+        ["Value"] = v66
+    }
+end
+return {
+    ["from"] = function(p68) -- name: from
+        -- upvalues: (copy) v_u_67
+        local v69 = v_u_67(p68)
+        if v69.Ok == false then
+            return nil, v69.Message
+        else
+            return v69.Value
+        end
+    end
+}
