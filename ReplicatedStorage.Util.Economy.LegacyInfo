@@ -1,0 +1,19 @@
+local v_u_1 = require(game.ReplicatedStorage.Economy.EconomyItem.LegacyInfo)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v3 = {
+    ["Templates"] = {}
+}
+v3.Templates.Simple = {}
+function v3.Templates.Simple.newRobuxItem(p4, p5, p6) -- name: newRobuxItem
+    -- upvalues: (copy) v_u_1, (copy) v_u_2
+    local v7 = v_u_1.Class.new
+    local v8 = "Robux"
+    if type(p4) ~= "string" then
+        p4 = v_u_2.getDataFromId(p4):unwrap().StorageKey
+    end
+    if type(p6) ~= "boolean" then
+        p6 = false
+    end
+    return v7(v8, p4, p6, p5)
+end
+return v3
