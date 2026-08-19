@@ -1,0 +1,794 @@
+return {
+    {
+        ["Equip Method"] = "LoadFruit",
+        ["Id"] = "-- Bisento [PhysicalMoveset-1]",
+        ["Storage Method"] = "TitlesUnlocked"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Triple Katana [Item-2]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Quake-Quake [Moveset-3]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Rocket-Rocket [Moveset-4]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Refined Slingshot [Item-5]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dual Flintlock [Item-6]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Musket [Item-7]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Magma-Magma [Moveset-8]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Hidden Key [Item-9]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Shark Saw [Item-10]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Katana [Item-11]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Iron Mace [Item-12]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Ice-Ice [Moveset-13]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Buddha-Buddha [Moveset-14]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Sanguine Art [Item-15]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Saber [Item-16]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Flintlock [Item-17]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Flame-Flame [Moveset-18]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dual Katana [Item-19]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Dark-Dark [Moveset-20]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Cutlass [Item-21]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Combat [Item-22]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Cannon [Item-23]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Rubber-Rubber [Moveset-24]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Bomb-Bomb [Moveset-25]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Spike-Spike [Moveset-26]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Wardens Sword [Item-27]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Pipe [Item-28]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dual-Headed Blade [Item-29]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Meme-Meme [Item-30]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Blade-Blade [Moveset-31]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Smoke-Smoke [Moveset-32]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- _Black Leg [Item-33]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Black Leg [Item-34]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Coat [Item-35]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Pink Coat [Item-36]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Torch [Item-37]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Cup [Item-38]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Tomoe Ring [Item-39]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Black Cape [Item-40]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Swordsman Hat [Item-41]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Cool Shades [Item-42]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Phoenix-Phoenix [Moveset-43]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Soul Cane [Item-44]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Electro [Item-45]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Spring-Spring [Moveset-46]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Magma Blaster [Item-47]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Spider-Spider [Moveset-48]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Trident [Item-49]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Rumble-Rumble [Moveset-50]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Pole (1st Form) [Item-51]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Bazooka [Item-52]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Sand-Sand [Moveset-53]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Gravity-Gravity [Moveset-54]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Fishman Karate [Item-55]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- D.S. Coat [Item-56]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Pain-Pain [Moveset-57]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Barrier-Barrier [Moveset-58]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Usoap\'s Hat [Item-59]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Top Hat [Item-60]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Marine Cap [Item-61]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Warrior Helmet [Item-62]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Choppa [Item-63]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Leopard-Leopard [Moveset-64]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Gravity Blade [Item-65]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Shizu [Item-66]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Longsword [Item-67]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dragon Claw [Item-68]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Saishi [Item-69]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Oroshi [Item-70]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Swan Glasses [Item-71]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dark Coat [Item-72]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Flower 1 [Item-73]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Flower 2 [Item-74]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Flower 3 [Item-75]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Last Resort [Item-76]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Agility [Item-77]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Water Body [Item-78]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Heavenly Blood [Item-79]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Light-Light [Moveset-80]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Rare Artifact [Item-81]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Acidum Rifle [Item-82]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Summon Sea Beast [Item-83]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Kabucha [Item-84]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Black Spikey Coat [Item-85]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Love-Love [Moveset-86]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- True Triple Katana [Item-87]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Superhuman [Item-88]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- black pillar [Item-89]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- black nuke [Item-90]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Rogue-Rogue [Item-91]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- black blast [Item-92]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Microchip [Item-93]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Special Microchip [Item-94]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Control-Control [Moveset-95]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Flail [Item-96]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Koko [Item-97]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Zebra Cap [Item-98]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- black meteors [Item-99]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- kamui [Item-100]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- gate [Item-101]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- amaterasu [Item-102]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Old Dragon Egg [Item-103]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Midnight Blade [Item-104]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Ghoul Mask [Item-105]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Heightened Senses [Item-106]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Hellfire Torch [Item-107]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Red Spikey Coat [Item-108]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Blue Spikey Coat [Item-109]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- tensei [Item-110]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Death Step [Item-111]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Rengoku [Item-112]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Santa Hat [Item-113]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Elf Hat [Item-114]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Fist of Darkness [Item-115]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Relic [Item-116]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dragon (Classic)-Dragon (Classic) [Moveset-117]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Triple Dark Blade [Item-118]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- rip kamui [Item-119]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dragon Trident [Item-120]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Pole (2nd Form) [Item-121]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Sharkman Karate [Item-122]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Sweet Chalice [Item-123]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Energy Core [Item-124]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Core Brain [Item-125]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Electric Claw [Item-126]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Venom-Venom [Moveset-127]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Spin-Spin [Moveset-128]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Door-Door [Item-129]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Kilo-Kilo [Item-130]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Bizarre Revolver [Item-131]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Love2-Love2 [Item-132]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Falcon-Falcon [Moveset-133]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Canvander [Item-134]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Yama [Item-135]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Tushita [Item-136]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Twin Hooks [Item-137]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Apple [Item-138]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Pretty Helmet [Item-139]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Jaw Shield [Item-140]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- God\'s Chalice [Item-141]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Holy Torch [Item-142]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Venom Bow [Item-143]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Banana [Item-144]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Pineapple [Item-145]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Fruit Bowl [Item-146]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Valkyrie Helm [Item-147]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Hunter Cape (Red) [Item-148]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Hunter Cape (Green) [Item-149]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Hunter Cape (Black) [Item-150]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Bandanna (Black) [Item-151]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Bandanna (Green) [Item-152]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Bandanna (Red) [Item-153]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Musketeer Hat [Item-154]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Pilot Helmet [Item-155]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Lei [Item-156]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dark Dagger [Item-157]",
+        ["Storage Method"] = ""
+    },
+    {
+        ["Equip Method"] = "FruitMovesetId",
+        ["Id"] = "Ghost-Ghost [Moveset-158]",
+        ["Storage Method"] = "RobuxFruits"
+    },
+    {
+        ["Equip Method"] = "",
+        ["Id"] = "-- Dragon Talon [
