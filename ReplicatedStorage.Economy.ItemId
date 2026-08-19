@@ -1,0 +1,241 @@
+local v1 = game:GetService("RunService")
+local v_u_2 = require(game.ReplicatedStorage.Packages.Result)
+require(game.ReplicatedStorage.Packages.Option)
+local v_u_3 = require(game.ReplicatedStorage.Packages.HashLib)
+local v_u_4 = require(game.ReplicatedStorage.Packages.Error)
+local v5 = require(game.ReplicatedStorage.GlobalUtil)
+require(script.Types)
+local v6 = require(script.TempIds)
+local v_u_7 = require(script.RawSource)
+local v8 = require(game.ReplicatedStorage.Util.FunctionCache)
+local v_u_9 = require(script.EDITS.RETIRED)
+local v_u_10 = require(script.EDITS.REDIRECTED)
+local v_u_11 = {
+    ["Gamepass"] = "Redeemable",
+    ["SpecialProduct"] = "Redeemable",
+    ["StorageIdOnly"] = "Redeemable",
+    ["SkinBundle"] = "Redeemable",
+    ["SaleBundle"] = "Redeemable",
+    ["FruitWithSkin"] = "PhysicalMoveset",
+    ["FruitWithMutation"] = "PhysicalMoveset",
+    ["MutatedFruit"] = "PhysicalMoveset",
+    ["SkinnedFruit"] = "PhysicalMoveset",
+    ["FruitFusion"] = "PhysicalMoveset",
+    ["PhysicalFruit"] = "PhysicalMoveset",
+    ["CurrencyBag"] = "Redeemable",
+    ["FruitBox"] = "Redeemable",
+    ["AuraSkin"] = "Skin",
+    ["FruitSkin"] = "Skin",
+    ["FruitMutation"] = "Mutation",
+    ["Fruit"] = "Moveset"
+}
+local v_u_12 = {}
+local v_u_13 = {}
+local v_u_14 = {}
+v_u_14.__index = v_u_14
+function v_u_14.__tostring(p15) -- name: __tostring
+    return "{" .. ("Type=\"%*\", StorageKey=\"%*\", ItemId=%*"):format(p15.Type, p15.StorageKey, p15.ItemId) .. "}"
+end
+function v_u_14.Hash(p16) -- name: Hash
+    -- upvalues: (copy) v_u_12, (copy) v_u_3, (copy) v_u_14
+    if not v_u_12[p16] then
+        v_u_12[p16] = v_u_3.md5(v_u_14.__tostring(p16))
+    end
+    local v17 = v_u_12[p16]
+    assert(v17, "bad hash")
+    return v17
+end
+function getSecurityKey(p18) -- name: getSecurityKey
+    -- upvalues: (copy) v_u_13, (copy) v_u_7, (copy) v_u_14, (copy) v_u_3
+    local v19 = v_u_13[p18.ItemId]
+    if v19 then
+        return v19
+    end
+    local v20 = v_u_7[p18.ItemId - 1]
+    local v21 = v_u_14.Hash(p18) .. "-" .. (not v20 and "" or getSecurityKey(v20.Id))
+    local v22 = v_u_3.md5(v21)
+    v_u_13[p18.ItemId] = v22
+    return v22
+end
+local v_u_23 = {
+    ["BAD_ID_TYPES"] = v_u_11
+}
+function getNextItemId() -- name: getNextItemId
+    -- upvalues: (copy) v_u_7
+    return #v_u_7 + 1
+end
+function v_u_23._buildNewEntry(p24) -- name: _buildNewEntry
+    -- upvalues: (copy) v_u_7, (copy) v_u_14
+    print((("Building new entry for (%*, %*) with ItemId %*"):format(p24.Type, p24.StorageKey, p24.ItemId)))
+    local v25 = table.clone(p24)
+    for _, v26 in pairs(v_u_7) do
+        if v26.Id.StorageKey == p24.StorageKey and v26.Id.Type == p24.Type then
+            error((("duplicate entry detected at #%*: (%*, %*)"):format(v26.Id.ItemId, v26.Id.Type, v26.Id.StorageKey)))
+        end
+    end
+    local v27 = v25.ItemId == getNextItemId()
+    local v28 = ("Bad ItemId: %*, expected %*"):format(v25.ItemId, (getNextItemId()))
+    assert(v27, v28)
+    local v29 = {
+        ["Id"] = table.freeze(v25),
+        ["SecurityKey"] = getSecurityKey(v25)
+    }
+    local v30 = v_u_7
+    table.insert(v30, v29)
+    local v31 = "{" .. ("\n\t\tSecurityKey = \"%*\",\n\t\tId = %*"):format(v29.SecurityKey, (v_u_14.__tostring(v29.Id))) .. "\n\t}"
+    return tostring(v31)
+end
+function v_u_23._buildNewEntries(p32) -- name: _buildNewEntries
+    -- upvalues: (copy) v_u_23
+    local v33 = {}
+    for v34, v35 in ipairs(p32) do
+        v33[v34] = v_u_23._buildNewEntry(v35)
+    end
+    return table.concat(v33, ",\n\t")
+end
+if #v6 > 0 then
+    local v36 = {}
+    for _, v37 in ipairs(v6) do
+        local v38 = {
+            ["Type"] = v37.Type,
+            ["StorageKey"] = v37.StorageKey,
+            ["ItemId"] = getNextItemId() + #v36
+        }
+        table.insert(v36, v38)
+    end
+    print(v_u_23._buildNewEntries(v36))
+end
+local v39 = v_u_4.trace(1)
+local v40 = {}
+local v41 = {}
+for v42, v43 in v_u_7 do
+    local v44 = getSecurityKey(v43.Id)
+    if v42 ~= v43.Id.ItemId then
+        v82 = v_u_2.err((v_u_4.new("InitFail"):description("_IDS didn\'t initialize correctly"):body("IndexMismatch"):title("Initialization Failure"):trace(v39):build()))
+        ::l10::
+        v_u_23._IDS = v82
+        local v_u_52 = v8.new(function(p45)
+            -- upvalues: (copy) v_u_10, (copy) v_u_4, (copy) v_u_2, (copy) v_u_23, (copy) v_u_9
+            local v_u_46 = v_u_10[p45] or p45
+            local v_u_47 = v_u_4.trace(1)
+            return v_u_2.match(v_u_23._IDS, function(p48)
+                -- upvalues: (ref) v_u_9, (ref) v_u_46, (ref) v_u_2, (ref) v_u_4, (copy) v_u_47
+                if table.find(v_u_9, v_u_46) then
+                    return v_u_2.err((v_u_4.new("BrokenId"):description((("Id #%* is bugged, it shouldn\'t ever be used"):format(v_u_46))):body(v_u_46):title("Broken Id"):trace(v_u_47):build()))
+                else
+                    local v49 = p48[v_u_46]
+                    if v49 then
+                        return v_u_2.ok(v49.Id)
+                    else
+                        return v_u_2.err((v_u_4.new("InvalidId"):description((("No data found for id #%*"):format(v_u_46))):body(v_u_46):title("Invalid Id"):trace(v_u_47):build()))
+                    end
+                end
+            end, function(p50)
+                -- upvalues: (ref) v_u_2
+                return v_u_2.err(p50)
+            end)
+        end, function(p51)
+            return ("%*"):format(p51)
+        end)
+        function v_u_23.getDataFromId(p53) -- name: getDataFromId
+            -- upvalues: (copy) v_u_52
+            return v_u_52:call(p53)
+        end
+        local v_u_60 = v8.new(function()
+            -- upvalues: (copy) v_u_2, (copy) v_u_23, (copy) v_u_11
+            return v_u_2.match(v_u_23._IDS, function(p54)
+                -- upvalues: (ref) v_u_11, (ref) v_u_2
+                local v55 = {}
+                for _, v56 in ipairs(p54) do
+                    v55[v_u_11[v56.Id.Type] or v56.Id.Type] = true
+                end
+                local v57 = {}
+                for v58, _ in pairs(v55) do
+                    table.insert(v57, v58)
+                end
+                return v_u_2.ok(v57)
+            end, function(p59)
+                -- upvalues: (ref) v_u_2
+                return v_u_2.err(p59)
+            end)
+        end, function()
+            return ""
+        end)
+        function v_u_23.getTypes() -- name: getTypes
+            -- upvalues: (copy) v_u_2, (copy) v_u_60
+            return v_u_2.map(v_u_60:call(), function(p61)
+                return table.clone(p61)
+            end)
+        end
+        local v_u_75 = v8.new(function(p_u_62, p63)
+            -- upvalues: (copy) v_u_11, (copy) v_u_2, (copy) v_u_23, (copy) v_u_9, (copy) v_u_10, (copy) v_u_4
+            local v_u_64 = v_u_11[p63] or p63
+            return v_u_2.match(v_u_23._IDS, function(p65)
+                -- upvalues: (ref) v_u_64, (copy) p_u_62, (ref) v_u_9, (ref) v_u_10, (ref) v_u_2, (ref) v_u_4
+                local v66 = {}
+                for _, v67 in ipairs(p65) do
+                    if v67.Id.Type == v_u_64 and (v67.Id.StorageKey == p_u_62 and not table.find(v_u_9, v67.Id.ItemId)) then
+                        v66[v_u_10[v67.Id.ItemId] or v67.Id.ItemId] = true
+                    end
+                end
+                local v68 = {}
+                for v69, _ in pairs(v66) do
+                    table.insert(v68, v69)
+                end
+                if #v68 == 1 then
+                    return v_u_2.ok(v68[1])
+                elseif #v68 > 1 then
+                    local v70 = {
+                        ["StorageKey"] = p_u_62,
+                        ["IdType"] = v_u_64
+                    }
+                    return v_u_2.err((v_u_4.new("TooManyMatches"):description((("found too many ids matching key=\'%*\' and idType=\'%*\'"):format(p_u_62, v_u_64))):body((table.freeze(v70))):title("Too Many Matches"):build()))
+                else
+                    local v71 = {
+                        ["StorageKey"] = p_u_62,
+                        ["IdType"] = v_u_64
+                    }
+                    return v_u_2.err((v_u_4.new("NoMatches"):description((("couldn\'t find matching id for key=\'%*\' and idType=\'%*\'"):format(p_u_62, v_u_64))):body((table.freeze(v71))):title("No Matches"):build()))
+                end
+            end, function(p72)
+                -- upvalues: (ref) v_u_2
+                return v_u_2.err(p72)
+            end)
+        end, function(p73, p74)
+            return ("%*_%*"):format(p73, p74)
+        end)
+        function v_u_23.getId(p76, p77) -- name: getId
+            -- upvalues: (copy) v_u_75
+            return v_u_75:call(p76, p77)
+        end
+        return v_u_23
+    end
+    if v44 ~= v43.SecurityKey then
+        v82 = v_u_2.err((v_u_4.new("InitFail"):description((("ItemId %* no longer matches the initial security key"):format(v42))):body("SecurityKeyMismatch"):title("Initialization Failure"):trace(v39):build()))
+        goto l10
+    end
+    local v78 = v_u_11[v43.Id.Type] or v43.Id.Type
+    local v79 = ("%*-%*"):format(v78, v43.Id.StorageKey)
+    if v40[v79] ~= nil and v_u_10[v43.Id.ItemId] == nil then
+        v82 = v_u_2.err((v_u_4.new("InitFail"):description((("duplicate item #%* at \"%*\""):format(v43.Id.ItemId, v79))):body("DuplicateItem"):title("Initialization Failure"):trace(v39):build()))
+        goto l10
+    end
+    if not v_u_10[v43.Id.ItemId] then
+        v40[v79] = true
+    end
+    local v80 = {}
+    local v81 = {
+        ["Type"] = v78,
+        ["StorageKey"] = v43.Id.StorageKey,
+        ["ItemId"] = v43.Id.ItemId
+    }
+    v80.Id = setmetatable(v81, v_u_14)
+    v80.SecurityKey = v43.SecurityKey
+    v41[v42] = v80
+    table.freeze(v41[v42])
+end
+if v5.FFlags.IsUnitTest == false and not v1:IsRunMode() then
+    table.freeze(v41)
+end
+local v82 = v_u_2.ok(v41)
+goto l10
