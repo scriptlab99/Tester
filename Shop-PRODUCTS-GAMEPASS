@@ -1,0 +1,51 @@
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v3 = require(game.ReplicatedStorage.IdMap)
+local v_u_4 = v1.Templates
+local v_u_5 = v1.Modules.Product.Templates
+local v6 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_7 = v1.Modules.LegacyInfo.Templates
+local v8 = v1.Modules.Qualification.Templates
+function newEconomyItem(p9, p10, p11) -- name: newEconomyItem
+    -- upvalues: (copy) v_u_2, (copy) v_u_4, (copy) v_u_5, (copy) v_u_7
+    local v12 = v_u_2.getId(p9, "Redeemable"):unwrap()
+    return v_u_4.Simple.new(v12, { v_u_5.Simple.new(p10) }, { p11 }, v_u_7.Simple.newRobuxItem(v12, "Gamepass"))
+end
+local v13 = pairs
+local v14 = {
+    ["2x Money"] = {
+        ["settlement"] = v6.Special.moneyBoost(),
+        ["qualification"] = v8.Special.no2xMoney("Recipient", { "Redeem", "Purchase", "Trade" })
+    },
+    ["2x Mastery"] = {
+        ["settlement"] = v6.Special.masteryBoost(),
+        ["qualification"] = v8.Special.no2xMastery("Recipient", { "Redeem", "Purchase", "Trade" })
+    },
+    ["2x Boss Drops"] = {
+        ["settlement"] = v6.Special.bossBoost(),
+        ["qualification"] = v8.Special.no2xBossDrops("Recipient", { "Redeem", "Purchase", "Trade" })
+    },
+    ["Dark Blade"] = {
+        ["settlement"] = v6.Special.permanentDarkBlade(),
+        ["qualification"] = v8.Item.notAlreadyRedeemed(v3.Redeemable["Dark Blade"], { "Redeem", "Purchase", "Trade" })
+    },
+    ["Fast Boats"] = {
+        ["settlement"] = v6.Special.fastBoats(),
+        ["qualification"] = v8.Special.noFastBoats("Recipient", { "Redeem", "Purchase", "Trade" })
+    },
+    ["Fruit Notifier"] = {
+        ["settlement"] = v6.Special.fruitNotifier(),
+        ["qualification"] = v8.Special.noFruitNotifier("Recipient", { "Redeem", "Purchase", "Trade" })
+    }
+}
+local v15 = {}
+for v16, v17 in v13(v14) do
+    local v18 = newEconomyItem
+    local v19 = v17.settlement
+    local v20 = v17.qualification
+    table.insert(v15, v18(v16, v19, v20))
+end
+table.freeze(v15)
+return v15
