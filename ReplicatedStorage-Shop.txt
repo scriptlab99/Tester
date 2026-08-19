@@ -1,0 +1,1430 @@
+local v_u_1 = require(game.ReplicatedStorage.Packages.Result)
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+local v_u_2 = require(game.ReplicatedStorage.ItemConfig)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v3 = require(game.ReplicatedStorage.Util.FunctionCache)
+local v4 = require(script.LEGACY_BELI_ITEMS)
+local v5 = require(script.LIBRARY)
+local v6 = {
+	["LIBRARY"] = v5,
+	["LEGACY_BELI_ITEMS"] = v4
+}
+local v_u_18 = v3.new(function(p7)
+	-- upvalues: (copy) v_u_2
+	local v8 = {}
+	for _, v9 in p7 do
+		local v10 = v_u_2.match(v9.ItemId):unwrap()
+		local v11 = v9:ToLegacy():unwrap()
+		if v8[v10.Index.StorageKey] then
+			error((("duplicate definition found for \"%*\""):format(v10.Index.StorageKey)))
+		end
+		if v11.subtype ~= "FruitMutation" and (v11.subtype ~= "FruitSkin" and (v11.subtype ~= "Skin Bundle" and v11.subtype ~= "AuraSkin")) then
+			local v12 = v8[v10.Display.Name or v10.Index.StorageKey]
+			if v12 then
+				error((("duplicate definition found for \"%*\": %* & %*"):format(v10.Display.Name or v10.Index.StorageKey, v12.StorageName, v11.StorageName)))
+			end
+			local v13 = v10.Index.StorageKey:gsub("Permanent ", "")
+			if v13 ~= v10.Index.StorageKey then
+				if v8[v13] then
+					error((("duplicate definition found for \"%*\", a shortening of \"%*\""):format(v13, v10.Index.DebugLabel)))
+				end
+				v8[v13] = v11
+			end
+			v8[v10.Display.Name or v10.Index.StorageKey] = v11
+		end
+		v8[v10.Index.StorageKey] = v11
+	end
+	table.freeze(v8)
+	return v8
+end, function(p14)
+	local v15 = {}
+	for _, v16 in p14 do
+		local v17 = v16.ItemId
+		table.insert(v15, v17)
+	end
+	return table.concat(v15)
+end)
+function v6.mapToLegacy(p19) -- name: mapToLegacy
+	-- upvalues: (copy) v_u_18
+	return table.clone(v_u_18:call(p19))
+end
+local v_u_20 = v6.mapToLegacy(v5.ALL)
+local v_u_21 = {}
+for _, v22 in v5.ALL do
+	v_u_21[v22.ItemId] = v22
+end
+table.freeze(v_u_21)
+local v_u_29 = v3.new(function(p23)
+	-- upvalues: (copy) v_u_2, (copy) v_u_20, (copy) v_u_1, (copy) v_u_21
+	local v24
+	if type(p23) == "number" then
+		v24 = v_u_2.match(p23):asNullable()
+	else
+		v24 = v_u_2.match(p23, "Redeemable"):asNullable()
+	end
+	if not v24 then
+		local v25 = v_u_20[p23]
+		if v25 then
+			local v26 = v25.ItemId
+			if v26 then
+				v24 = v_u_2.match(v26):asNullable()
+			else
+				v24 = nil
+			end
+		end
+	end
+	if v24 then
+		local v27 = v_u_21[v24.Index.ItemId]
+		if v27 then
+			return v_u_1.ok(v27)
+		else
+			return v_u_1.err((("no economy item defined for \"%*\""):format(v24.Index.DebugLabel)))
+		end
+	else
+		return v_u_1.err((("no item id found for \"%*\""):format(p23)))
+	end
+end, function(p28)
+	return ("%*"):format(p28)
+end)
+function v6.match(p30) -- name: match
+	-- upvalues: (copy) v_u_29
+	return v_u_29:call(p30)
+end
+return v6]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[Shop]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties><Item class="ModuleScript" referent="1"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+local v1 = require(game.ReplicatedStorage.ItemConfig)
+local v5 = {
+	["Rocket-Rocket"] = {},
+	["Spin-Spin"] = {},
+	["Blade-Blade"] = {},
+	["Spring-Spring"] = {},
+	["Bomb-Bomb"] = {},
+	["Smoke-Smoke"] = {},
+	["Lightning-Lightning"] = {},
+	["Spike-Spike"] = {},
+	["Flame-Flame"] = {},
+	["Eagle-Eagle"] = {},
+	["Ice-Ice"] = {},
+	["Sand-Sand"] = {},
+	["Dark-Dark"] = {},
+	["Diamond-Diamond"] = {},
+	["Light-Light"] = {},
+	["Rubber-Rubber"] = {},
+	["Control-Control"] = {},
+	["Ghost-Ghost"] = {},
+	["Magma-Magma"] = {},
+	["Quake-Quake"] = {},
+	["Buddha-Buddha"] = {},
+	["Love-Love"] = {},
+	["Spider-Spider"] = {},
+	["Sound-Sound"] = {},
+	["Phoenix-Phoenix"] = {},
+	["Portal-Portal"] = {},
+	["Pain-Pain"] = {},
+	["Blizzard-Blizzard"] = {},
+	["Gravity-Gravity"] = {},
+	["T-Rex-T-Rex"] = {},
+	["Mammoth-Mammoth"] = {},
+	["Dough-Dough"] = {},
+	["Shadow-Shadow"] = {},
+	["Venom-Venom"] = {},
+	["Creation-Creation"] = {},
+	["Gas-Gas"] = {},
+	["Spirit-Spirit"] = {},
+	["Yeti-Yeti"] = {},
+	["Tiger-Tiger"] = {},
+	["Kitsune-Kitsune"] = {},
+	["Dragon-Dragon"] = {},
+	["Meme-Meme"] = {},
+	["Cannon"] = {},
+	["Musket"] = {},
+	["Slingshot"] = {},
+	["Refined Slingshot"] = {},
+	["Flintlock"] = {},
+	["Dual Flintlock"] = {},
+	["Cutlass"] = {},
+	["Dual Katana"] = {},
+	["Katana"] = {},
+	["Triple Katana"] = {},
+	["Dark Blade"] = {},
+	["Bisento"] = {
+		["LevelReq"] = 250
+	},
+	["Soul Cane"] = {},
+	["Dual-Headed Blade"] = {},
+	["Iron Mace"] = {},
+	["Pipe"] = {},
+	["Black Cape"] = {
+		["Condition"] = function(p2) -- name: Condition
+			return p2.Level >= 50
+		end
+	},
+	["Swordsman Hat"] = {
+		["Price"] = 150000,
+		["Description"] = "",
+		["Condition"] = nil,
+		["Condition"] = function(p3) -- name: Condition
+			return p3.Stats.Sword.Level >= 100 and (p3.Abilities.Buso and (p3.Abilities.Geppo and p3.Abilities.Soru)) and true or false
+		end
+	},
+	["Tomoe Ring"] = {
+		["Condition"] = function(p4) -- name: Condition
+			return p4.Stats.Melee.Level >= 200
+		end
+	}
+}
+local v6 = {}
+for v7, v8 in pairs(v5) do
+	local v9 = v1.Query.joinOne
+	local v10 = {}
+	local v11 = {
+		["StorageKey"] = v7,
+		["IdType"] = {
+			["Operation"] = "OR",
+			["Values"] = nil,
+			["Values"] = { "PhysicalMoveset", "Moveset" }
+		}
+	}
+	v10.Index = v11
+	v10.Quality = {
+		["MoneyPrice"] = {
+			["Operation"] = "NEQ",
+			["Value"] = nil
+		}
+	}
+	local v12 = {
+		["Index"] = {
+			["StorageKey"] = nil,
+			["IdType"] = "Accessory",
+			["StorageKey"] = v7
+		}
+	}
+	local v13 = v9(v10, v12):unwrap()
+	v8.Name = v7
+	v8.Price = v13.Quality.MoneyPrice
+	v8.Description = v13.Display.Description
+	local v14 = v8.Price
+	local v15 = ("bad price: %*"):format(v8.Price)
+	assert(v14, v15)
+	v8.StockChance = v13.Quality.StockChance
+	v8.StockOffset = v13.Quality.StockOffset
+	table.freeze(v8)
+	v6[v7] = v8
+end
+table.freeze(v6)
+return v6]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[LEGACY_BELI_ITEMS]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="2"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(script.PRODUCTS)
+local v2 = require(script.BOX)
+local v_u_3 = {}
+local v_u_4 = {}
+function injectItems(p5) -- name: injectItems
+	-- upvalues: (copy) v_u_4, (copy) v_u_3
+	for _, v6 in ipairs(p5) do
+		local v7 = v6.ItemId
+		if v_u_4[v7] == true then
+			error((("Duplicate storage id: %* for item %*"):format(v7, v6)))
+		end
+		v_u_4[v6.ItemId] = true
+		local v8 = v_u_3
+		table.insert(v8, v6)
+	end
+end
+injectItems(v1.ALL)
+injectItems(v2)
+table.sort(v_u_3, function(p9, p10)
+	return p9.ItemId < p10.ItemId
+end)
+table.freeze(v_u_3)
+local v11 = {
+	["ALL"] = v_u_3,
+	["BOX"] = v2,
+	["PRODUCT"] = v1
+}
+table.freeze(v11)
+return v11]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[LIBRARY]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties><Item class="ModuleScript" referent="3"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v_u_3 = v1.Templates
+local v_u_4 = v1.Modules.Product.Templates
+local v_u_5 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_6 = v1.Modules.LegacyInfo.Templates
+local _ = v1.Modules.Qualification.Templates
+function newEconomyItem(p7) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_4, (copy) v_u_5, (copy) v_u_6
+	local v8 = v_u_2.getId(p7, "Redeemable"):unwrap()
+	return v_u_3.Simple.new(v8, { v_u_4.Simple.new(v_u_5.Item.box(v8)) }, {}, v_u_6.Simple.newRobuxItem(v8, "FruitBox"), {})
+end
+local v9 = {}
+for _, v10 in pairs({
+	"MysteryBoxS2",
+	"UncommonBoxS2",
+	"RareBoxS2",
+	"LegendaryBoxS2",
+	"MythicalBoxS2",
+	"PremiumBoxS2",
+	"Fruit Box",
+	"Super Fruit Box",
+	"GachaData",
+	"SummerWeek2Gacha",
+	"SummerWeek3Gacha",
+	"SummerWeek4Gacha",
+	"SummerWeek5Gacha",
+	"MysteryBoxS3",
+	"UncommonBoxS3",
+	"RareBoxS3",
+	"LegendaryBoxS3",
+	"MythicalBoxS3",
+	"PremiumBoxS3",
+	"LegendaryEasterGift26",
+	"RareEasterGift26",
+	"DogHouseGacha26"
+}) do
+	local v11 = newEconomyItem
+	table.insert(v9, v11(v10))
+end
+table.freeze(v9)
+return v9]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[BOX]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="4"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+local v1 = require(game.ReplicatedStorage.Packages.TableUtil)
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v2 = require(script.PERMANENT_FRUIT)
+local v3 = require(script.MONEY)
+local v4 = require(script.FRAGMENT)
+local v5 = require(script.EXP)
+local v6 = require(script.SCROLL)
+local v7 = require(script.GAMEPASS)
+local v8 = require(script.MISC)
+local v9 = require(script.DUNGEON)
+local v10 = require(script.VOUCHER)
+local v11 = require(script.BUNDLE)
+local v12 = require(script.MODIFICATION)
+local v13 = {}
+v1.append(v13, v2)
+v1.append(v13, v3)
+v1.append(v13, v4)
+v1.append(v13, v5)
+v1.append(v13, v6)
+v1.append(v13, v7)
+v1.append(v13, v8)
+v1.append(v13, v9)
+v1.append(v13, v10)
+v1.append(v13, v11.ALL)
+v1.append(v13, v12.ALL)
+table.freeze(v13)
+local v14 = {
+	["ALL"] = v13,
+	["MODIFICATION"] = v12,
+	["DUNGEON"] = v9,
+	["EXP"] = v5,
+	["FRAGMENT"] = v4,
+	["PERMANENT_FRUIT"] = v2,
+	["MISC"] = v8,
+	["GAMEPASS"] = v7,
+	["MONEY"] = v3,
+	["SCROLL"] = v6,
+	["VOUCHER"] = v10,
+	["BUNDLE"] = v11
+}
+table.freeze(v14)
+return v14]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[PRODUCTS]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties><Item class="ModuleScript" referent="5"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+local v1 = require(game.ReplicatedStorage.Packages.TableUtil)
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v2 = require(script.EVENT)
+local v3 = require(script.DRAGON_SKIN)
+local v4 = {}
+v1.append(v4, v2)
+v1.append(v4, v3)
+table.freeze(v4)
+local v5 = {
+	["ALL"] = v4,
+	["EVENT"] = v2,
+	["DRAGON_SKIN"] = v3
+}
+table.freeze(v5)
+return v5]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[BUNDLE]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties><Item class="ModuleScript" referent="6"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v_u_1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.ItemConfig)
+require(game.ReplicatedStorage.SaleService)
+local v3 = require(game.ReplicatedStorage.IdMap)
+local v_u_4 = {
+	[v3.Redeemable.EmberChromaticDragon] = { "HolidayChromatics2024" },
+	[v3.Redeemable.EclipseChromaticDragon] = { "HolidayChromatics2024" },
+	[v3.Redeemable.BloodmoonChromaticDragon] = { "HolidayChromatics2024" },
+	[v3.Redeemable.PhoenixSkyChromaticDragon] = { "HolidayChromatics2024" },
+	[v3.Redeemable.VioletNightChromaticDragon] = { "HolidayChromatics2024" }
+}
+local v_u_5 = v_u_1.Templates
+local v_u_6 = v_u_1.Modules.Product.Templates
+local v_u_7 = v_u_1.Modules.Product.Modules.Settlement.Templates
+local v_u_8 = v_u_1.Modules.LegacyInfo.Templates
+local v_u_9 = v_u_1.Modules.Qualification.Templates
+function newEconomyItem(p10, p11, _) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_4, (copy) v_u_9, (copy) v_u_1, (copy) v_u_2, (copy) v_u_6, (copy) v_u_7, (copy) v_u_5, (copy) v_u_8
+	local v12 = {}
+	local v13 = {}
+	local v14
+	if v_u_4[p10] then
+		v14 = table.clone(v_u_4[p10])
+		assert(v14, "bad sales")
+		for _, v15 in v14 do
+			local v16 = v_u_9.saleIsActive
+			table.insert(v13, v16(v15, { "Purchase" }, nil))
+		end
+	else
+		v14 = nil
+	end
+	for _, v17 in p11 do
+		local v18 = v_u_9.Item.doesNotOwnFruitSkin
+		local v19 = v_u_1.excludeFilters
+		table.insert(v13, v18(v17, v19({ "Store" })))
+		local v20 = v_u_2.match(v17):unwrap()
+		local v21 = v20.Skin
+		if v21 then
+			v21 = v20.Skin.Adornee
+		end
+		local v22 = ("bad skin config: \"%*\""):format(v20.Index.DebugLabel)
+		assert(v21, v22)
+		local v23 = v_u_2.match(v20.Skin.Adornee):unwrap()
+		local v24 = v23.Moveset
+		if v24 then
+			v24 = v23.Moveset.Physical
+		end
+		local v25 = ("bad base config: \"%*\""):format(v23.Index.DebugLabel)
+		assert(v24, v25)
+		local v26 = v_u_9.Item.ownsPermanentFruit
+		local v27 = v23.Index.StorageKey
+		table.insert(v13, v26(v27, { "Trade", "Redeem", "Purchase" }))
+		local v28 = v_u_6.Simple.new
+		local v29 = v_u_7.Item.fruitSkin
+		table.insert(v12, v28(v29(v17)))
+	end
+	return v_u_5.Simple.new(p10, v12, v13, v_u_8.Simple.newRobuxItem(p10, "SkinBundle", false), {}, v14)
+end
+local v30 = {}
+for v31, v32 in {
+	[v3.Redeemable.EmberChromaticDragon] = { v3.Skin.ESTDSKINember, v3.Skin.WSTDSKINember },
+	[v3.Redeemable.EclipseChromaticDragon] = { v3.Skin.ESTDSKINeclipse, v3.Skin.WSTDSKINeclipse },
+	[v3.Redeemable.BloodmoonChromaticDragon] = { v3.Skin.ESTDSKINbloodmoon, v3.Skin.WSTDSKINbloodmoon },
+	[v3.Redeemable.PhoenixSkyChromaticDragon] = { v3.Skin.ESTDSKINphoenixsky, v3.Skin.WSTDSKINphoenixsky },
+	[v3.Redeemable.VioletNightChromaticDragon] = { v3.Skin.ESTDSKINvioletnight, v3.Skin.WSTDSKINvioletnight }
+} do
+	local v33 = v_u_2.match(v31):unwrap()
+	local v34 = newEconomyItem
+	local v35 = v33.Economy
+	if v35 then
+		v35 = v33.Economy.TradeReducer
+	end
+	table.insert(v30, v34(v31, v32, v35))
+end
+table.freeze(v30)
+return v30]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[DRAGON_SKIN]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="7"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Packages.Result)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+require(game.ReplicatedStorage.Economy.EconomyItem.Qualification)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v2 = require(game.ReplicatedStorage.IdMap)
+local v3 = v1.Templates
+local v4 = v1.Modules.Product.Templates
+local v5 = v1.Modules.Product.Modules.Settlement.Templates
+local v6 = v1.Modules.Qualification.Templates
+local v7 = {}
+local v8 = v2.Redeemable.HolidayEssentials24
+local v9 = v3.Simple.new
+local v10 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Buddha-Buddha"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Portal-Portal"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["10K Fragments"], true)),
+	v4.Tiered.complex({
+		[NumberRange.new(0, 699)] = v5.economyItem(v2.Redeemable["300K Money"], true),
+		[NumberRange.new(700, 1499)] = v5.economyItem(v2.Redeemable["900K Money"], true),
+		[NumberRange.new(1500, 15000000000)] = v5.economyItem(v2.Redeemable["1.8M Money"], true)
+	})
+}
+local v11 = { v6.saleIsActive("HolidayEssentials24", v1.excludeFilters({ "Redeem" })), v6.Item.maxPurchases(v8, 5, { "Purchase" }), v6.Item.maxGiftsSent(v8, 1, { "Gift" }) }
+local v12 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v8, "Bundle", nil)
+table.insert(v7, v9(v8, v10, v11, v12, {}, { "HolidayEssentials24" }))
+local v13 = v2.Redeemable.WinterCombo24
+local v14 = v3.Simple.new
+local v15 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Yeti-Yeti"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Gas-Gas"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["10K Fragments"], true)),
+	v4.Tiered.complex({
+		[NumberRange.new(0, 699)] = v5.economyItem(v2.Redeemable["300K Money"], true),
+		[NumberRange.new(700, 1499)] = v5.economyItem(v2.Redeemable["900K Money"], true),
+		[NumberRange.new(1500, 15000000000)] = v5.economyItem(v2.Redeemable["1.8M Money"], true)
+	})
+}
+local v16 = { v6.saleIsActive("WinterCombo24", v1.excludeFilters({ "Redeem" })), v6.Item.maxPurchases(v13, 5, { "Purchase" }), v6.Item.maxGiftsSent(v13, 1, { "Gift" }) }
+local v17 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v13, "Bundle", nil)
+table.insert(v7, v14(v13, v15, v16, v17, {}, { "WinterCombo24" }))
+local v18 = v2.Redeemable.ULTIMATEBUNDLE24
+local v19 = v3.Simple.new
+local v20 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Dragon-Dragon"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Buddha-Buddha"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Yeti-Yeti"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Gas-Gas"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["10K Fragments"], true)),
+	v4.Tiered.complex({
+		[NumberRange.new(0, 699)] = v5.economyItem(v2.Redeemable["300K Money"], true),
+		[NumberRange.new(700, 1499)] = v5.economyItem(v2.Redeemable["900K Money"], true),
+		[NumberRange.new(1500, 15000000000)] = v5.economyItem(v2.Redeemable["1.8M Money"], true)
+	})
+}
+local v21 = { v6.saleIsActive("ULTIMATEBUNDLE24", v1.excludeFilters({ "Redeem" })), v6.Item.maxPurchases(v18, 5, { "Purchase" }), v6.Item.maxGiftsSent(v18, 1, { "Gift" }) }
+local v22 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v18, "Bundle", nil)
+table.insert(v7, v19(v18, v20, v21, v22, {}, { "ULTIMATEBUNDLE24" }))
+local v23 = v2.Redeemable["Halloween 2025 Bundle"]
+local v24 = v3.Simple.new
+local v25 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Tiger-Tiger"], true)),
+	v4.Simple.new(v5.Item.mutatedFruit(v2.PhysicalMoveset["Werewolf (Tiger)-Werewolf (Tiger)"], 1)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["4.5K Fragments"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["810K Money"], true))
+}
+local v26 = { v6.saleIsActive("HalloweenBundle2025", v1.excludeFilters({ "Redeem" })), v6.Item.maxPurchases(v23, 4, { "Purchase" }), v6.Item.maxGiftsSent(v23, 5, { "Gift" }) }
+local v27 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v23, "Bundle", nil)
+table.insert(v7, v24(v23, v25, v26, v27, {}, { "HalloweenBundle2025" }))
+local v28 = v2.Redeemable["Fox Spirit Bundle"]
+local v29 = v3.Simple.new
+local v30 = {
+	v4.Simple.new(v5.Item.mutatedFruit(v2.PhysicalMoveset["Empyrean (Kitsune)-Empyrean (Kitsune)"], 1)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Kitsune-Kitsune"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["2.1K Fragments"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["1.5M Money"], true))
+}
+local v31 = { v6.saleIsActive("FoxSpiritBundle2025", v1.excludeFilters({ "Redeem" })), v6.Item.maxPurchases(v28, 5, { "Purchase" }), v6.Item.maxGiftsSent(v28, 5, { "Gift" }) }
+local v32 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v28, "Bundle", nil)
+table.insert(v7, v29(v28, v30, v31, v32, {}, { "FoxSpiritBundle2025" }))
+local v33 = v2.Redeemable["Ultimate Bundle 2025"]
+local v34 = v3.Simple.new
+local v35 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Control-Control"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Dragon-Dragon"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Tiger-Tiger"], true)),
+	v4.Tiered.complex({
+		[NumberRange.new(0, 699)] = v5.economyItem(v2.Redeemable["10K Money"], true),
+		[NumberRange.new(700, 15000000000)] = v5.economyItem(v2.Redeemable["10K Fragments"], true)
+	}),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["900K Money"], true))
+}
+local v36 = { v6.saleIsActive("UltimateBundle2025", v1.excludeFilters({ "Redeem" })), v6.Item.maxPurchases(v33, 5, { "Purchase" }), v6.Item.maxGiftsSent(v33, 5, { "Gift" }) }
+local v37 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v33, "Bundle", nil)
+table.insert(v7, v34(v33, v35, v36, v37, {}, { "UltimateBundle2025" }))
+local v38 = v2.Redeemable["Holiday Bundle 2025"]
+local v39 = v3.Simple.new
+local v40 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Portal-Portal"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Buddha-Buddha"], true)),
+	v4.Tiered.complex({
+		[NumberRange.new(0, 699)] = v5.economyItem(v2.Redeemable["10K Money"], true),
+		[NumberRange.new(700, 15000000000)] = v5.economyItem(v2.Redeemable["10K Fragments"], true)
+	}),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["900K Money"], true))
+}
+local v41 = { v6.saleIsActive("HolidayBundle2025", v1.excludeFilters({ "Redeem" })), v6.Item.maxPurchases(v38, 5, { "Purchase" }), v6.Item.maxGiftsSent(v38, 5, { "Gift" }) }
+local v42 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v38, "Bundle", nil)
+table.insert(v7, v39(v38, v40, v41, v42, {}, { "HolidayBundle2025" }))
+local v43 = v2.Redeemable["Bloodfrost Bundle"]
+local v44 = v3.Simple.new
+local v45 = {
+	v4.Simple.new(v5.Item.mutatedFruit(v2.PhysicalMoveset["Fiend (Yeti)-Fiend (Yeti)"], 1)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Yeti-Yeti"], true)),
+	v4.Tiered.complex({
+		[NumberRange.new(0, 699)] = v5.economyItem(v2.Redeemable["10K Money"], true),
+		[NumberRange.new(700, 15000000000)] = v5.economyItem(v2.Redeemable["4.5K Fragments"], true)
+	}),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["810K Money"], true))
+}
+local v46 = { v6.saleIsActive("Valentines2026Bundle"), v6.Item.maxPurchases(v43, 5, { "Purchase" }), v6.Item.maxGiftsSent(v43, 5, { "Gift" }) }
+local v47 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v43, "Bundle", nil)
+table.insert(v7, v44(v43, v45, v46, v47, {}, { "Valentines2026Bundle" }))
+local v48 = v2.Redeemable.Easter2026Bundle
+local v49 = v1.Templates.Simple.new
+local v50 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Gas-Gas"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Permanent Lightning-Lightning"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["4.5K Fragments"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["810K Money"], true))
+}
+local v51 = { v6.saleIsActive("Easter2026"), v6.Item.maxPurchases(v48, 5, { "Purchase" }), v6.Item.maxGiftsSent(v48, 5, { "Gift" }) }
+local v52 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v48, "Bundle", nil)
+table.insert(v7, v49(v48, v50, v51, v52, {}, { "Easter2026" }))
+local v53 = v2.Redeemable.GamepassBundle
+local v54 = v1.Templates.Simple.new
+local v55 = {
+	v4.Simple.new(v5.economyItem(v2.Redeemable["2x Boss Drops"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Fast Boats"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["2x Money"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["2x Mastery"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["Fruit Notifier"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["10K Fragments"], true)),
+	v4.Simple.new(v5.economyItem(v2.Redeemable["1.8M Money"], true))
+}
+local v56 = { v6.saleIsActive("Easter2026"), v6.Item.maxPurchases(v53, 5, { "Purchase" }), v6.Item.maxGiftsSent(v53, 5, { "Gift" }) }
+local v57 = v1.Modules.LegacyInfo.Templates.Simple.newRobuxItem(v53, "Bundle", nil)
+table.insert(v7, v54(v53, v55, v56, v57, {}, { "Easter2026" }))
+table.freeze(v7)
+return v7]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[EVENT]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item></Item><Item class="ModuleScript" referent="8"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v_u_3 = require(game.ReplicatedStorage.ItemConfig)
+local v_u_4 = require(game.ReplicatedStorage.IdMap)
+local v_u_5 = v1.Templates
+local v_u_6 = v1.Modules.Product.Templates
+local v_u_7 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_8 = v1.Modules.LegacyInfo.Templates
+local v_u_9 = v1.Modules.Qualification.Templates
+function newEconomyItem(p10) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_4, (copy) v_u_3, (copy) v_u_5, (copy) v_u_6, (copy) v_u_7, (copy) v_u_9, (copy) v_u_8
+	local v11 = ("%* Simulation Data"):format(p10)
+	local v12 = v_u_2.getId(v11, "Redeemable"):unwrap()
+	local v13 = v_u_4.Material["Simulation Data"]
+	local v14 = v_u_3.match(v13):unwrap()
+	local v15 = v14.Inventory.MaxStack
+	local v16 = ("bad maxStack for material \"%*\""):format(v14.Index.DebugLabel)
+	assert(v15, v16)
+	local v17 = v15 - p10
+	return v_u_5.Simple.new(v12, { v_u_6.Simple.new(v_u_7.Currency.simulationData(p10)) }, { v_u_9.Item.new(v13, "StorageLimit", "Recipient", nil, v17, { "Redeem" }, nil), v_u_9.hasReachedSea("Sea2", { "Purchase" }) }, v_u_8.Simple.newRobuxItem(v12, "DungeonProduct", false), {})
+end
+local v18 = {}
+for _, v19 in {
+	200,
+	1000,
+	2700,
+	6000,
+	10000
+} do
+	local v20 = newEconomyItem
+	table.insert(v18, v20(v19))
+end
+table.freeze(v18)
+return v18]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[DUNGEON]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="9"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v_u_3 = v1.Templates
+local v_u_4 = v1.Modules.Product.Templates
+local v_u_5 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_6 = v1.Modules.LegacyInfo.Templates
+local _ = v1.Modules.Qualification.Templates
+function newEconomyItem(p7, p8) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_4, (copy) v_u_5, (copy) v_u_6
+	local v9 = v_u_2.getId(p7, "Redeemable"):unwrap()
+	return v_u_3.Simple.new(v9, { v_u_4.Simple.new(v_u_5.expBoost(p8)) }, {}, v_u_6.Simple.newRobuxItem(v9, "ExpProduct", false), { "StoreOnGiftClaim", "CanTradeDuplicates" })
+end
+local v10 = {}
+for v11, v12 in pairs({
+	["2x EXP (15 mins.)"] = {
+		["duration"] = 900
+	},
+	["2x EXP (1 hour)"] = {
+		["duration"] = 3600
+	},
+	["2x EXP (6 hours)"] = {
+		["duration"] = 21600
+	},
+	["2x EXP (12 hours)"] = {
+		["duration"] = 43200
+	},
+	["2x EXP (24 hours)"] = {
+		["duration"] = 86400
+	}
+}) do
+	local v13 = newEconomyItem
+	local v14 = v12.duration
+	table.insert(v10, v13(v11, v14))
+end
+table.freeze(v10)
+return v10]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[EXP]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="10"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v_u_3 = v1.Templates
+local v_u_4 = v1.Modules.Product.Templates
+local v_u_5 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_6 = v1.Modules.LegacyInfo.Templates
+local v_u_7 = v1.Modules.Qualification.Templates
+function newEconomyItem(p8, p9) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_4, (copy) v_u_5, (copy) v_u_7, (copy) v_u_6
+	local v10 = v_u_2.getId(p8, "Redeemable"):unwrap()
+	return v_u_3.Simple.new(v10, { v_u_4.Simple.new(v_u_5.Currency.fragments(p9)) }, { v_u_7.hasLessFragmentsThan(1000000000 - p9, { "Redeem", "Trade" }), v_u_7.hasReachedSea("Sea2") }, v_u_6.Simple.newRobuxItem(v10, "Currency", false), { "CanTradeDuplicates" })
+end
+local v11 = {}
+for v12, v13 in pairs({
+	["500 Fragments"] = {
+		["amount"] = 500
+	},
+	["2.1K Fragments"] = {
+		["amount"] = 2100
+	},
+	["4.5K Fragments"] = {
+		["amount"] = 4500
+	},
+	["10K Fragments"] = {
+		["amount"] = 10000
+	},
+	["16K Fragments"] = {
+		["amount"] = 16000
+	}
+}) do
+	local v14 = newEconomyItem
+	local v15 = v13.amount
+	table.insert(v11, v14(v12, v15))
+end
+table.freeze(v11)
+return v11]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[FRAGMENT]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="11"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v3 = require(game.ReplicatedStorage.IdMap)
+local v_u_4 = v1.Templates
+local v_u_5 = v1.Modules.Product.Templates
+local v6 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_7 = v1.Modules.LegacyInfo.Templates
+local v8 = v1.Modules.Qualification.Templates
+function newEconomyItem(p9, p10, p11) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_4, (copy) v_u_5, (copy) v_u_7
+	local v12 = v_u_2.getId(p9, "Redeemable"):unwrap()
+	return v_u_4.Simple.new(v12, { v_u_5.Simple.new(p10) }, { p11 }, v_u_7.Simple.newRobuxItem(v12, "Gamepass"))
+end
+local v13 = pairs
+local v14 = {
+	["2x Money"] = {
+		["settlement"] = v6.Special.moneyBoost(),
+		["qualification"] = v8.Special.no2xMoney("Recipient", { "Redeem", "Purchase", "Trade" })
+	},
+	["2x Mastery"] = {
+		["settlement"] = v6.Special.masteryBoost(),
+		["qualification"] = v8.Special.no2xMastery("Recipient", { "Redeem", "Purchase", "Trade" })
+	},
+	["2x Boss Drops"] = {
+		["settlement"] = v6.Special.bossBoost(),
+		["qualification"] = v8.Special.no2xBossDrops("Recipient", { "Redeem", "Purchase", "Trade" })
+	},
+	["Dark Blade"] = {
+		["settlement"] = v6.Special.permanentDarkBlade(),
+		["qualification"] = v8.Item.notAlreadyRedeemed(v3.Redeemable["Dark Blade"], { "Redeem", "Purchase", "Trade" })
+	},
+	["Fast Boats"] = {
+		["settlement"] = v6.Special.fastBoats(),
+		["qualification"] = v8.Special.noFastBoats("Recipient", { "Redeem", "Purchase", "Trade" })
+	},
+	["Fruit Notifier"] = {
+		["settlement"] = v6.Special.fruitNotifier(),
+		["qualification"] = v8.Special.noFruitNotifier("Recipient", { "Redeem", "Purchase", "Trade" })
+	}
+}
+local v15 = {}
+for v16, v17 in v13(v14) do
+	local v18 = newEconomyItem
+	local v19 = v17.settlement
+	local v20 = v17.qualification
+	table.insert(v15, v18(v16, v19, v20))
+end
+table.freeze(v15)
+return v15]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[GAMEPASS]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="12"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v3 = require(game.ReplicatedStorage.IdMap)
+require(game.ReplicatedStorage.SaleService)
+local v_u_4 = v1.Templates
+local v_u_5 = v1.Modules.Product.Templates
+local v6 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_7 = v1.Modules.LegacyInfo.Templates
+local v8 = v1.Modules.Qualification.Templates
+function newEconomyItem(p9, p10, p11, p12, _, p13, p14, p15, p16) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_4, (copy) v_u_5, (copy) v_u_7
+	local v17 = v_u_2.getId(p9, "Redeemable"):unwrap()
+	local v18 = {}
+	if p13 == true then
+		table.insert(v18, "NoStore")
+	end
+	if p16 then
+		table.insert(v18, "StoreOnGiftClaim")
+	end
+	if p9 == "Dragon Token (Tradable)" then
+		table.insert(v18, "StoreAsEtcItem")
+	end
+	if p15 then
+		table.insert(v18, "CanTradeDuplicates")
+	end
+	return v_u_4.Simple.new(v17, { v_u_5.Simple.new(p11) }, p12 or {}, v_u_7.Simple.newRobuxItem(v17, p10, false), v18, p14)
+end
+local v19 = {}
+for v20, v21 in pairs({
+	["Physical Rocket Fruit"] = {
+		["subtype"] = "PhysicalRocketFruit",
+		["settlement"] = nil,
+		["settlement"] = v6.Item.physicalMoveset("Rocket-Rocket")
+	},
+	["Discounted Permanent Dragon"] = {
+		["subtype"] = "Fruit",
+		["settlement"] = nil,
+		["nostore"] = true,
+		["qualifications"] = nil,
+		["doNotFeature"] = true,
+		["settlement"] = v6.Special.discountedPermanentDragon(),
+		["qualifications"] = { v8.Special.noPermanentDragonDiscount("Recipient", { "Redeem", "Purchase" }) }
+	},
+	["Dragon Token (Tradable)"] = {
+		["subtype"] = "NamedProduct",
+		["settlement"] = nil,
+		["qualifications"] = nil,
+		["doNotFeature"] = true,
+		["settlement"] = v6.Special.tradableDragonToken(),
+		["qualifications"] = { v8.Item.notAlreadyRedeemed(v3.Moveset["Dragon-Dragon"], { "Redeem", "Trade" }) }
+	},
+	["Respawn Bosses"] = {
+		["subtype"] = "NamedProduct",
+		["settlement"] = nil,
+		["settlement"] = v6.Special.respawnBosses()
+	},
+	["Refund Points"] = {
+		["subtype"] = "NamedProduct",
+		["settlement"] = nil,
+		["settlement"] = v6.Special.refundPoints()
+	},
+	["Change Race"] = {
+		["subtype"] = "NamedProduct",
+		["settlement"] = nil,
+		["settlement"] = v6.Special.changeRace()
+	},
+	["+1 Fruit Storage"] = {
+		["subtype"] = "NamedProduct",
+		["settlement"] = nil,
+		["storeOnGiftClaim"] = true,
+		["allowTradeDupes"] = true,
+		["settlement"] = v6.Special.plus1FruitStorage()
+	},
+	["x1 Premium Holiday 2025 Box"] = {
+		["subtype"] = "NamedProduct",
+		["nostore"] = true,
+		["settlement"] = nil,
+		["qualifications"] = nil,
+		["saleKey"] = "HolidayBundle2025",
+		["settlement"] = v6.Special.holiday2025Box("1"),
+		["qualifications"] = { v8.saleIsActive("HolidayBundle2025", { "Purchase" }) }
+	},
+	["x3 Premium Holiday 2025 Box"] = {
+		["subtype"] = "NamedProduct",
+		["nostore"] = true,
+		["settlement"] = nil,
+		["qualifications"] = nil,
+		["saleKey"] = "HolidayBundle2025",
+		["settlement"] = v6.Special.holiday2025Box("3"),
+		["qualifications"] = { v8.saleIsActive("HolidayBundle2025", { "Purchase" }) }
+	},
+	["x10 Premium Holiday 2025 Box"] = {
+		["subtype"] = "NamedProduct",
+		["nostore"] = true,
+		["settlement"] = nil,
+		["qualifications"] = nil,
+		["saleKey"] = "HolidayBundle2025",
+		["settlement"] = v6.Special.holiday2025Box("10"),
+		["qualifications"] = { v8.saleIsActive("HolidayBundle2025", { "Purchase" }) }
+	}
+}) do
+	local v22 = newEconomyItem
+	local v23 = v21.subtype
+	local v24 = v21.settlement
+	local v25 = v21.qualifications
+	local v26 = v21.doNotFeature
+	local v27 = v21.nostore
+	local v28 = v21.saleKey and { v21.saleKey } or nil
+	local v29 = v21.allowTradeDupes
+	local v30 = v21.storeOnGiftClaim
+	table.insert(v19, v22(v20, v23, v24, v25, v26, v27, v28, v29, v30))
+end
+table.freeze(v19)
+return v19]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[MISC]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="13"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+local v1 = require(game.ReplicatedStorage.Packages.TableUtil)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v2 = require(script.SKIN)
+local v3 = require(script.MUTATION)
+local v4 = {}
+v1.append(v4, v2.ALL)
+v1.append(v4, v3)
+table.freeze(v4)
+local v5 = {
+	["ALL"] = v4,
+	["SKIN"] = v2,
+	["MUTATION"] = v3
+}
+table.freeze(v5)
+return v5]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[MODIFICATION]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties><Item class="ModuleScript" referent="14"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+local v_u_1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.ItemConfig)
+local v3 = require(game.ReplicatedStorage.IdMap)
+local v_u_4 = v_u_1.Templates
+local v_u_5 = v_u_1.Modules.Product.Templates
+local v_u_6 = v_u_1.Modules.Product.Modules.Settlement.Templates
+local v_u_7 = v_u_1.Modules.LegacyInfo.Templates
+local v_u_8 = v_u_1.Modules.Qualification.Templates
+local function v23(p9)
+	-- upvalues: (copy) v_u_2, (copy) v_u_4, (copy) v_u_5, (copy) v_u_6, (copy) v_u_8, (copy) v_u_1, (copy) v_u_7
+	local v10 = v_u_2.match(p9):unwrap()
+	local v11 = v10.Economy
+	if not v11 then
+		print(v10)
+	end
+	local v12 = ("bad product for %*"):format(v10.Index.DebugLabel)
+	assert(v11, v12)
+	local v13 = v11.ProductId
+	local v14 = ("missing product id for %*"):format(v10.Index.DebugLabel)
+	assert(v13, v14)
+	local v15 = v_u_2.Query.selectOne
+	local v16 = {
+		["Index"] = {
+			["StorageKey"] = nil,
+			["IdType"] = "Mutation",
+			["StorageKey"] = v10.Index.StorageKey
+		}
+	}
+	local v17 = v15(v16):unwrap().Index.ItemId
+	local v18 = {
+		["Variant"] = {
+			["Mutation"] = v17
+		}
+	}
+	local v19 = v_u_2.Query.selectOne(v18):unwrap()
+	local v20 = v19.Variant.VariantOf
+	local v21 = ("bad variant: \"%*\""):format(v19.Index.DebugLabel)
+	assert(v20, v21)
+	local v22 = v_u_2.match(v20):unwrap()
+	return v_u_4.Simple.new(v10.Index.ItemId, { v_u_5.Simple.new(v_u_6.Item.fruitMutation(v17)) }, { v_u_8.Item.doesNotOwnFruitMutation(v17, { "Redeem", "Purchase" }), v_u_8.Item.ownsPermanentFruit(v22.Index.StorageKey, v_u_1.excludeFilters({ "Store", "Trade" })) }, v_u_7.Simple.newRobuxItem(v10.Index.StorageKey, "FruitMutation", false))
+end
+return table.freeze({ v23(v3.Redeemable.TIGERMUTWerewolf), v23(v3.Redeemable.KITSUNEMUTKyukon), v23(v3.Redeemable.YETIMUTFiend) })]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[MUTATION]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="15"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+local v1 = require(game.ReplicatedStorage.Packages.TableUtil)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v2 = require(script.FRUIT)
+local v3 = require(script.AURA)
+local v4 = {}
+v1.append(v4, v2)
+v1.append(v4, v3)
+table.freeze(v4)
+local v5 = {
+	["ALL"] = v4,
+	["FRUIT"] = v2,
+	["AURA"] = v3
+}
+table.freeze(v5)
+return v5]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[SKIN]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties><Item class="ModuleScript" referent="16"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v_u_1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.ItemConfig)
+local v_u_3 = v_u_1.Templates
+local v_u_4 = v_u_1.Modules.Product.Templates
+local v_u_5 = v_u_1.Modules.Product.Modules.Settlement.Templates
+local v_u_6 = v_u_1.Modules.LegacyInfo.Templates
+local v_u_7 = v_u_1.Modules.Qualification.Templates
+function newEconomyItem(p8, _) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_4, (copy) v_u_5, (copy) v_u_3, (copy) v_u_7, (copy) v_u_1, (copy) v_u_6
+	local v9 = v_u_2.match(p8, "Skin"):unwrap()
+	local v10 = v_u_2.match(p8, "Redeemable"):unwrap()
+	local v11 = { v_u_4.Simple.new(v_u_5.Item.auraSkin(v9.Index.ItemId)) }
+	return v_u_3.Simple.new(v10.Index.ItemId, v11, { v_u_7.Item.doesNotOwnAuraSkin(v9.Index.ItemId, { "Redeem", "Trade" }), v_u_7.Item.hasNotLearnedAuraSkill(v_u_1.excludeFilters({ "Store" })) }, v_u_6.Simple.newRobuxItem(v10.Index.ItemId, "AuraSkin", false))
+end
+local v12 = {}
+for _, v13 in v_u_2.Query.select({
+	["Skin"] = {
+		["Type"] = "Aura"
+	}
+}) do
+	local v14 = v_u_2.match(v13.Index.StorageKey, "Redeemable"):asNullable()
+	if v14 then
+		local v15 = newEconomyItem
+		local v16 = v13.Index.StorageKey
+		local v17 = v14.Economy
+		if v17 then
+			v17 = v14.Economy.TradeReducer
+		end
+		table.insert(v12, v15(v16, v17))
+	end
+end
+table.freeze(v12)
+return v12]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[AURA]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="17"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v_u_1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.ItemConfig)
+require(game.ReplicatedStorage.SaleService)
+local v_u_3 = {
+	[require(game.ReplicatedStorage.IdMap).Redeemable.FALCSKINparrot] = { "EagleChromatics2025" }
+}
+local v_u_4 = v_u_1.Templates
+local v_u_5 = v_u_1.Modules.Product.Templates
+local v_u_6 = v_u_1.Modules.Product.Modules.Settlement.Templates
+local v_u_7 = v_u_1.Modules.LegacyInfo.Templates
+local v_u_8 = v_u_1.Modules.Qualification.Templates
+function newEconomyItem(p9, p10, p11, _, _) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_3, (copy) v_u_8, (copy) v_u_1, (copy) v_u_2, (copy) v_u_5, (copy) v_u_6, (copy) v_u_4, (copy) v_u_7
+	local v12 = {}
+	local v13 = {}
+	local v14
+	if v_u_3[p9] then
+		v14 = table.clone(v_u_3[p9])
+		assert(v14, "bad sales")
+		for _, v15 in v14 do
+			local v16 = v_u_8.saleIsActive
+			table.insert(v13, v16(v15, { "Purchase" }, nil))
+		end
+	else
+		v14 = nil
+	end
+	for _, v17 in p11 do
+		local v18 = v_u_8.Item.doesNotOwnFruitSkin
+		local v19 = v_u_1.excludeFilters
+		table.insert(v13, v18(v17, v19({ "Store" })))
+		local v20 = v_u_2.match(v17):unwrap()
+		local v21 = v20.Skin
+		if v21 then
+			v21 = v20.Skin.Adornee
+		end
+		local v22 = ("bad skin config: \"%*\""):format(v20.Index.DebugLabel)
+		assert(v21, v22)
+		local v23 = v_u_2.match(v20.Skin.Adornee):unwrap()
+		local v24 = v23.Moveset
+		if v24 then
+			v24 = v23.Moveset.Physical
+		end
+		local v25 = ("bad base config: \"%*\""):format(v23.Index.DebugLabel)
+		assert(v24, v25)
+		local v26 = v_u_2.match(v23.Moveset.Physical):unwrap()
+		local v27 = { "Trade", "Redeem", "Purchase" }
+		local v28 = v_u_8.Item.ownsPermanentFruit
+		local v29 = v23.Index.StorageKey
+		local v30 = v_u_8.Item.hasFruitEquipped
+		local v31 = v26.Index.StorageKey
+		table.insert(v13, v28(v29, v27, v30(v31, v27)))
+		local v32 = v_u_5.Simple.new
+		local v33 = v_u_6.Item.fruitSkin
+		table.insert(v12, v32(v33(v17)))
+	end
+	return v_u_4.Simple.new(p9, v12, v13, v_u_7.Simple.newRobuxItem(p9, p10, false), {}, v14)
+end
+local v34 = {
+	["Index"] = {
+		["IdType"] = "Skin"
+	},
+	["Skin"] = {
+		["Type"] = "Fruit",
+		["Physical"] = nil,
+		["Physical"] = {
+			["Operation"] = "EQ",
+			["Value"] = nil
+		}
+	},
+	["Economy"] = {
+		["PurchaseWith"] = {
+			["Operation"] = "NEQ",
+			["Value"] = nil
+		}
+	}
+}
+local v35 = {}
+for _, v36 in v_u_2.Query.select(v34) do
+	local v37 = v36.Economy
+	if v37 then
+		v37 = v36.Economy.PurchaseWith
+	end
+	local v38 = ("bad purchaseWith for \"%*\""):format(v36.Index.DebugLabel)
+	assert(v37, v38)
+	local v39 = {
+		["Index"] = {
+			["IdType"] = "Skin"
+		},
+		["Skin"] = {
+			["Type"] = "Fruit"
+		},
+		["Economy"] = {
+			["PurchaseWith"] = v37
+		}
+	}
+	if #v_u_2.Query.select(v39) == 1 then
+		local v40 = v_u_2.match(v37):unwrap()
+		local v41 = v40.Economy
+		if v41 then
+			v41 = v40.Economy.TradeReducer
+		end
+		local v42 = newEconomyItem
+		local v43 = v40.Index.ItemId
+		local v44 = { v36.Index.ItemId }
+		table.insert(v35, v42(v43, "FruitSkin", v44, v41))
+	end
+end
+table.freeze(v35)
+return v35]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[FRUIT]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item></Item></Item><Item class="ModuleScript" referent="18"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v_u_3 = v1.Templates
+local v_u_4 = v1.Modules.Product.Templates
+local v_u_5 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_6 = v1.Modules.LegacyInfo.Templates
+local v_u_7 = v1.Modules.Qualification.Templates
+function newEconomyItem(p8, p9, p10) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_4, (copy) v_u_5, (copy) v_u_7, (copy) v_u_6
+	local v11 = v_u_2.getId(p8, "Redeemable"):unwrap()
+	local v12 = v_u_3.Simple.new
+	local v13 = { v_u_4.Simple.new(v_u_5.Currency.money(p9)) }
+	local v14 = {}
+	local v15 = v_u_7.hasLessMoneyThan(1000000000 - p9, { "Redeem", "Trade" })
+	local v16
+	if p10 then
+		v16 = v_u_7.hasReachedSea(p10, { "Gift", "Purchase" })
+	else
+		v16 = nil
+	end
+	__set_list(v14, 1, {v15, v16})
+	return v12(v11, v13, v14, v_u_6.Simple.newRobuxItem(v11, "Currency", false), { "CanTradeDuplicates" })
+end
+local v17 = {}
+for v18, v19 in pairs({
+	["10K Money"] = {
+		["amount"] = 10000
+	},
+	["50K Money"] = {
+		["amount"] = 50000
+	},
+	["135K Money"] = {
+		["amount"] = 135000
+	},
+	["300K Money"] = {
+		["amount"] = 300000
+	},
+	["500K Money"] = {
+		["amount"] = 500000
+	},
+	["30K Money"] = {
+		["amount"] = 30000,
+		["sea"] = "Sea2"
+	},
+	["150K Money"] = {
+		["amount"] = 150000,
+		["sea"] = "Sea2"
+	},
+	["405K Money"] = {
+		["amount"] = 405000,
+		["sea"] = "Sea2"
+	},
+	["900K Money"] = {
+		["amount"] = 900000,
+		["sea"] = "Sea2"
+	},
+	["1.5M Money"] = {
+		["amount"] = 1500000,
+		["sea"] = "Sea2"
+	},
+	["60K Money"] = {
+		["amount"] = 60000,
+		["sea"] = "Sea3"
+	},
+	["305K Money"] = {
+		["amount"] = 305000,
+		["sea"] = "Sea3"
+	},
+	["810K Money"] = {
+		["amount"] = 810000,
+		["sea"] = "Sea3"
+	},
+	["1.8M Money"] = {
+		["amount"] = 1800000,
+		["sea"] = "Sea3"
+	},
+	["3M Money"] = {
+		["amount"] = 3000000,
+		["sea"] = "Sea3"
+	},
+	["600K Money"] = {
+		["amount"] = 600000
+	}
+}) do
+	local v20 = newEconomyItem
+	local v21 = v19.amount
+	local v22 = v19.sea
+	table.insert(v17, v20(v18, v21, v22))
+end
+table.freeze(v17)
+return v17]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[MONEY]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="19"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v_u_3 = v1.Templates
+local v_u_4 = v1.Modules.Product.Templates
+local v_u_5 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_6 = v1.Modules.LegacyInfo.Templates
+local v_u_7 = v1.Modules.Qualification.Templates
+function newEconomyItem(p8) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_3, (copy) v_u_4, (copy) v_u_5, (copy) v_u_7, (copy) v_u_6
+	local v9 = v_u_2.getId("Permanent " .. p8, "Redeemable"):unwrap()
+	local v10 = v_u_2.getId(p8, "Moveset"):unwrap()
+	return v_u_3.Simple.new(v9, { v_u_4.Simple.new(v_u_5.Item.permanentFruit(p8)) }, { v_u_7.Item.notAlreadyRedeemed(v10, { "Redeem", "Purchase", "Trade" }) }, v_u_6.Simple.newRobuxItem(v10, "Fruit"), { "BadPurchasesAreStored" })
+end
+local v11 = {}
+for _, v12 in pairs({
+	"Bomb-Bomb",
+	"Spike-Spike",
+	"Blade-Blade",
+	"Smoke-Smoke",
+	"Spring-Spring",
+	"Rocket-Rocket",
+	"Spin-Spin",
+	"Flame-Flame",
+	"Ice-Ice",
+	"Sand-Sand",
+	"Dark-Dark",
+	"Diamond-Diamond",
+	"Light-Light",
+	"Rubber-Rubber",
+	"Ghost-Ghost",
+	"Magma-Magma",
+	"Portal-Portal",
+	"Blizzard-Blizzard",
+	"Quake-Quake",
+	"Buddha-Buddha",
+	"Love-Love",
+	"Spider-Spider",
+	"Sound-Sound",
+	"Phoenix-Phoenix",
+	"Pain-Pain",
+	"Gravity-Gravity",
+	"T-Rex-T-Rex",
+	"Mammoth-Mammoth",
+	"Dough-Dough",
+	"Shadow-Shadow",
+	"Venom-Venom",
+	"Control-Control",
+	"Gas-Gas",
+	"Spirit-Spirit",
+	"Dragon-Dragon",
+	"Yeti-Yeti",
+	"Tiger-Tiger",
+	"Kitsune-Kitsune",
+	"Eagle-Eagle",
+	"Creation-Creation",
+	"Lightning-Lightning"
+}) do
+	local v13 = newEconomyItem
+	table.insert(v11, v13(v12))
+end
+table.freeze(v11)
+return v11]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[PERMANENT_FRUIT]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="20"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v_u_2 = require(game.ReplicatedStorage.Economy.ItemId)
+local v3 = require(game.ReplicatedStorage.IdMap)
+local v_u_4 = require(game.ReplicatedStorage.ItemConfig)
+local v_u_5 = v1.Templates
+local v_u_6 = v1.Modules.Product.Templates
+local v_u_7 = v1.Modules.Product.Modules.Settlement.Templates
+local v_u_8 = v1.Modules.LegacyInfo.Templates
+local v_u_9 = v1.Modules.Qualification.Templates
+function newEconomyItem(p10, p11, p12, p13) -- name: newEconomyItem
+	-- upvalues: (copy) v_u_2, (copy) v_u_4, (copy) v_u_9, (copy) v_u_5, (copy) v_u_6, (copy) v_u_7, (copy) v_u_8
+	local v14 = v_u_2.getId(p10, "Redeemable"):unwrap()
+	local v15 = v_u_4.match(p11):unwrap()
+	local v16 = v15.Inventory.MaxStack
+	local v17 = ("bad maxStack for material \"%*\""):format(v15.Index.DebugLabel)
+	assert(v16, v17)
+	local _ = v16 - p12
+	local v18 = {}
+	if p13 then
+		local v19 = v_u_9.hasReachedSea
+		table.insert(v18, v19("Sea3", { "Purchase" }))
+	end
+	return v_u_5.Simple.new(v14, { v_u_6.Simple.new(v_u_7.Item.scroll(p11, p12)) }, v18, v_u_8.Simple.newRobuxItem(v14, "StoredProduct", false), { "CanTradeDuplicates" })
+end
+local v20 = pairs
+local v21 = {
+	["Mythical Scroll"] = {
+		["amount"] = 1,
+		["item"] = nil,
+		["item"] = v3.Scroll["Mythical Scroll"]
+	},
+	["3x Mythical Scrolls"] = {
+		["amount"] = 3,
+		["item"] = nil,
+		["sea3"] = true,
+		["item"] = v3.Scroll["Mythical Scroll"]
+	},
+	["Legendary Scroll"] = {
+		["amount"] = 1,
+		["item"] = nil,
+		["item"] = v3.Scroll["Legendary Scroll"]
+	},
+	["5x Legendary Scrolls"] = {
+		["amount"] = 5,
+		["item"] = nil,
+		["sea3"] = true,
+		["item"] = v3.Scroll["Legendary Scroll"]
+	}
+}
+local v22 = {}
+for v23, v24 in v20(v21) do
+	local v25 = newEconomyItem
+	local v26 = v24.item
+	local v27 = v24.amount
+	local v28 = v24.sea3
+	table.insert(v22, v25(v23, v26, v27, v28))
+end
+table.freeze(v22)
+return v22]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[SCROLL]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item><Item class="ModuleScript" referent="21"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+require(game.ReplicatedStorage.Economy.LegacyData.RobuxItem)
+require(game.ReplicatedStorage.Economy.EconomyItem)
+local v1 = require(game.ReplicatedStorage.Util.Economy)
+local v2 = require(game.ReplicatedStorage.IdMap)
+local v3 = require(game.ReplicatedStorage.ItemConfig)
+local v4 = v1.Templates
+local v5 = v1.Modules.Product.Templates
+local v6 = v1.Modules.Product.Modules.Settlement.Templates
+local v7 = v1.Modules.LegacyInfo.Templates
+local v8 = v1.Modules.Qualification.Templates
+local v9 = {}
+local v10 = v2.Redeemable["The Sword Of The Brat"]
+local v11 = v2.Moveset["The Sword Of The Brat"]
+local v12 = v4.Simple.new
+local v13 = { v5.Simple.new(v6.Item.sword(v11)) }
+local v14 = { v8.Item.notAlreadyRedeemed(v11, { "Redeem" }) }
+local v15 = v7.Simple.newRobuxItem(v10, "Sword")
+table.insert(v9, v12(v10, v13, v14, v15, { "BadPurchasesAreStored", "StoreOnTrade" }))
+local v16 = v2.Redeemable.BRATSKINslayer
+local v17 = v2.Skin.BRATSKINslayer
+local v18 = {}
+local v19 = {}
+local v20 = v8.Item.doesNotOwnSwordSkin
+local v21 = v1.excludeFilters
+table.insert(v19, v20(v17, v21({ "Store", "Trade" })))
+local v22 = v3.match(v17):unwrap()
+local v23 = v22.Skin
+if v23 then
+	v23 = v22.Skin.Adornee
+end
+local v24 = ("bad skin config: \"%*\""):format(v22.Index.DebugLabel)
+assert(v23, v24)
+local v25 = v5.Simple.new
+local v26 = v6.economyItem
+local v27 = v2.Redeemable["The Sword Of The Brat"]
+table.insert(v18, v25(v26(v27, false)))
+local v28 = v5.Simple.new
+local v29 = v6.Item.swordSkin
+table.insert(v18, v28(v29(v17)))
+local v30 = v4.Simple.new
+local v31 = v7.Simple.newRobuxItem(v16, "Bundle", false)
+table.insert(v9, v30(v16, v18, v19, v31, { "StoreOnTrade" }))
+local v32 = v2.Redeemable.Doge
+local v33 = v2.ProfileFullArt.Doge
+local v34 = {}
+local v35 = {}
+local v36 = v8.Item.doesNotOwnProfileFullArt
+local v37 = v1.excludeFilters
+table.insert(v35, v36(v33, v37({ "Store", "Trade" })))
+local v38 = v5.Simple.new
+local v39 = v6.Item.profileFullArt
+table.insert(v34, v38(v39(v33)))
+local v40 = v4.Simple.new
+local v41 = v7.Simple.newRobuxItem(v32, "ProfileItem", false)
+table.insert(v9, v40(v32, v34, v35, v41, { "StoreOnTrade" }))
+table.freeze(v9)
+return v9]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[VOUCHER]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item></Item><Item class="ModuleScript" referent="22"><Properties><ProtectedString name="Source"><![CDATA[-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw
+
+local v1 = require(script.Parent)
+local v2 = require(game.ReplicatedStorage.Packages.Display)
+local v_u_3 = require(game.ReplicatedStorage.Packages.Result)
+local v_u_4 = require(game.ReplicatedStorage.Packages.Option)
+local v9 = v2.JSON.new():setUseMetatable(false):setOverride(function(p5, p6, p7, p8)
+	-- upvalues: (copy) v_u_4, (copy) v_u_3
+	if v_u_4.isOption(p5) then
+		return p7:display(p5:asNullable(), p6, p8)
+	elseif v_u_3.isResult(p5) then
+		return p7:display(p5:asNullable(), p6, p8)
+	elseif typeof(p5) == "DateTime" then
+		return ("\"DateTime(%*)\""):format((p5:ToIsoDate()))
+	else
+		return nil
+	end
+end):build()
+local v10 = table.clone(v1.ALL)
+table.sort(v10, function(p11, p12)
+	return p11.ItemId < p12.ItemId
+end)
+local v13 = {}
+for v14, v15 in v10 do
+	v13[v14] = v9:display(v15)
+end
+return v13]]></ProtectedString><BinaryString name="AttributesSerialize"></BinaryString><bool name="DefinesCapabilities">false</bool><string name="Name"><![CDATA[dump.lune]]></string><SharedString name="Tags">MTAwMDAwMDAwMDAwMDAwMA==</SharedString></Properties></Item></Item></Item><Item class="Script" referent="23"><Properties><string name="Name"><![CDATA[README]]></string><ProtectedString name="Source"><![CDATA[--[[
+		Thank you for using UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw.
+
+		If you didn't save in Binary (rbxl) - it's recommended to save the game right away to take advantage of the binary format & to preserve values of certain properties if you used IgnoreDefaultProperties setting (as they might change in the future).
+		You can do that by going to FILE -> Save to File As -> Make sure File Name ends with .rbxl -> Save
+
+		ServerStorage, ServerScriptService and Server Scripts are IMPOSSIBLE to save because of FilteringEnabled.
+
+		If your player cannot spawn into the game, please move the scripts in StarterPlayer somewhere else or delete them. Then run `game:GetService("Players").CharacterAutoLoads = true`.
+		And use "Play Here" to start game instead of "Play" to spawn your Character where your Camera currently is.
+
+		If the chat system does not work, please use the explorer and delete everything inside the TextChatService/Chat service(s). 
+		Or run `game:GetService("Chat"):ClearAllChildren() game:GetService("TextChatService"):ClearAllChildren()`
+				
+		If Union and MeshPart collisions don't work, run the script below in the Studio Command Bar:
+				
+				
+		local C = game:GetService("CoreGui")
+		local D = Enum.CollisionFidelity.Default
+				
+		for _, v in game:GetDescendants() do
+			if v:IsA("TriangleMeshPart") and not v:IsDescendantOf(C) then
+				v.CollisionFidelity = D
+			end
+		end
+		print("Done")
+				
+		If you can't move the Camera, run this script in the Studio Command Bar:
+			
+		workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed
+		
+		Or Destroy the Camera.
+
+		This file was generated with the following settings:
+		{"SavePlayerCharacters":true,"SaveBytecode":false,"Callback":false,"ShowStatus":true,"IgnoreDefaultPlayerScripts":true,"NilInstancesFixes":{"BaseWrap":null,"Animator":null,"Attachment":null,"PackageLink":null,"AdPortal":null},"IgnoreList":["CoreGui","CorePackages"],"__DEBUG_MODE":false,"KillAllScripts":true,"DecompileJobless":false,"Decompile":true,"IgnoreNotArchivable":true,"Object":null,"DecompileIgnore":["TextChatService",null,null,null],"IgnoreSpecialProperties":true,"BoostFPS":true,"IsModel":false,"NilInstances":false,"ExtraInstances":[],"ReadMe":true,"OptionsAliasesInverse":{"noscripts":"Decompile","RemovePlayers":"IsolatePlayers","RemovePlayerCharacters":"SavePlayerCharacters"},"OptionsAliases":{"DecompileScripts":"Decompile","timeout":"DecompileTimeout","StatusText":"ShowStatus","SavePlayers":"IsolatePlayers","FileName":"FilePath","SaveCharacters":"SavePlayerCharacters","SaveNilInstances":"NilInstances","IgnoreArchivable":"IgnoreNotArchivable","SaveNonCreatable":"SaveNotCreatable","SaveLocalPlayer":"IsolateLocalPlayer","InstancesBlacklist":"IgnoreList","IsolatePlayerGui":"IsolateLocalPlayer","SavePlayerGui":"IsolateLocalPlayer","IgnoreDefaultProps":"IgnoreDefaultProperties"},"IgnoreSharedStrings":false,"TreatUnionsAsParts":false,"scriptcache":true,"SharedStringOverwrite":false,"AlternativeWritefile":true,"mode":"optimized","SaveCacheInterval":56320,"NotCreatableFixes":["","AdvancedDragger","AnimationTrack","Dragger","Player","PlayerGui","PlayerMouse","PlayerMouse","PlayerScripts","ScreenshotHud","StudioData","TextChatMessage","TextSource","TouchTransmitter","Translator"],"IsolatePlayers":false,"BytecodeTimeout":3,"FilePath":"Place_85211729168715_ModuleScript_Shop_1787136428.txt","IgnoreDefaultProperties":true,"Anonymous":false,"IsolateStarterPlayer":false,"IsolateLocalPlayerCharacter":false,"IgnorePropertiesOfNotScriptsOnScriptsMode":false,"AvoidFileOverwrite":true,"SaveNotCreatable":false,"IsolateLocalPlayer":false,"ShutdownWhenDone":false,"AntiIdle":true,"SafeMode":true,"IgnoreProperties":[],"DecompileTimeout":10}
+
+		Elapsed time: 1.1296230769949034 Date (UTC): 19 August 2026 10:48:23 PlaceId: 85211729168715 PlaceVersion: 76 Client Version: 2.733.988 Platform: Android Executor: Delta 1.1.733.988 arm64
+]]]]></ProtectedString></Properties></Item><SharedStrings><SharedString md5="MTAwMDAwMDAwMDAwMDAwMA=="></SharedString></SharedStrings></roblox><!-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw -->
